@@ -1,6 +1,7 @@
 /* Shared by the editor and PDF so each block keeps its visual identity. */
 .annotation { position: absolute; box-sizing: border-box; cursor: grab; }
-.annotation-shape { pointer-events: none; }
+.annotation-shape { pointer-events: auto; background: transparent; touch-action: none; }
+.annotation:active { cursor: grabbing; }
 .annotation-shape svg { overflow: visible; }
 .annotation-shape circle, .annotation-shape rect, .annotation-shape polygon {
   fill: none; stroke: currentColor; stroke-width: 2; vector-effect: non-scaling-stroke; pointer-events: stroke;
@@ -10,8 +11,6 @@
 .annotation-selected { outline: 1px dashed #9583be; outline-offset: 6px; }
 .annotation-resize { position: absolute; right: -6px; bottom: -6px; width: 12px; height: 12px; background: white; border: 2px solid #9583be; border-radius: 3px; cursor: nwse-resize; pointer-events: auto; }
 .annotation-shape .annotation-hit { stroke: transparent; stroke-width: 16; }
-.annotation-resize.resize-width { top: 50%; bottom: auto; margin-top: -6px; cursor: ew-resize; }
-.annotation-resize.resize-height { left: 50%; right: auto; margin-left: -6px; cursor: ns-resize; }
 .node {
   --block-bg: #edf2fc;
   --block-border: #cbd9ef;

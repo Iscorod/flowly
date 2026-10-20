@@ -180,7 +180,7 @@ function App() {
     <aside className="left"><p className="eyebrow">BLOQUES</p>{Object.entries(shapes).map(([type,name]) => <button className="tool" key={type} onClick={() => addNode(type)}><b>{icon[type]}</b>{name}<i>+</i></button>)}
     <p className="eyebrow saved-title">FIGURAS Y TEXTO</p>
     {Object.entries(annotations).map(([type,name]) => <button className="tool" key={type} onClick={() => addAnnotation(type)}><b>{{circle:"○",square:"□",triangle:"△",text:"T"}[type]}</b>{name}<i>+</i></button>)}
-    <div className="hint">Mueve las figuras desde su contorno. Arrastra su esquina para cambiar el tamaño. Agrupan visualmente; los bloques se mueven por separado.</div><p className="eyebrow saved-title">GUARDADOS</p>{saved.length ? saved.map(d => <button className="file" key={d.id} onClick={() => load(d.id)}>{d.title}<small>{d.updatedAt ? new Date(d.updatedAt).toLocaleDateString("es-ES") : "en GitHub"}</small></button>) : <p className="empty">Aún no hay diagramas en GitHub.</p>}</aside>
+    <div className="hint">Mantén pulsado dentro de una figura para moverla. Solo la esquina inferior derecha cambia su tamaño. Los bloques se mueven por separado.</div><p className="eyebrow saved-title">GUARDADOS</p>{saved.length ? saved.map(d => <button className="file" key={d.id} onClick={() => load(d.id)}>{d.title}<small>{d.updatedAt ? new Date(d.updatedAt).toLocaleDateString("es-ES") : "en GitHub"}</small></button>) : <p className="empty">Aún no hay diagramas en GitHub.</p>}</aside>
     <main ref={viewport} className="canvas viewport" style={{backgroundPosition:`${view.x}px ${view.y}px`,backgroundSize:`${22*view.zoom}px ${22*view.zoom}px`}}
       onPointerDown={e => {
         if (e.button !== 0 || e.target.closest("button, [role='button']")) return;
@@ -209,10 +209,6 @@ function App() {
           </svg>}
           {selected === a.id && <>
             <span className="annotation-resize" data-resize="both" title="Arrastra para cambiar ancho y alto"/>
-            {a.type === "square" && <>
-              <span className="annotation-resize resize-width" data-resize="width" title="Arrastra para cambiar el ancho"/>
-              <span className="annotation-resize resize-height" data-resize="height" title="Arrastra para cambiar el alto"/>
-            </>}
           </>}
         </div>)}
         <svg className="edges" width="1" height="1"><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L0,9 L8,4.5 z"/></marker></defs>{paths}</svg>
