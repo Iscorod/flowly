@@ -1,7 +1,7 @@
 {
   "id": "leads-mkt",
   "title": "Leads - MKT",
-  "updatedAt": "2026-10-20T10:50:13.601Z",
+  "updatedAt": "2026-10-20T10:51:43.029Z",
   "nodes": [
     {
       "id": "start-1792492489306",
@@ -61,15 +61,15 @@
       "id": "process-1792493128014",
       "type": "decision",
       "label": "Si tiene",
-      "x": 276,
-      "y": 737
+      "x": 271,
+      "y": 763
     },
     {
       "id": "process-1792493131554",
       "type": "decision",
       "label": "No tiene",
-      "x": 942,
-      "y": 731
+      "x": 912,
+      "y": 768
     }
   ],
   "edges": [
@@ -104,6 +104,14 @@
     {
       "from": "decision-1792492579888",
       "to": "process-1792492598847"
+    },
+    {
+      "from": "decision-1792493046147",
+      "to": "process-1792493128014"
+    },
+    {
+      "from": "decision-1792493046147",
+      "to": "process-1792493131554"
     }
   ]
 }
