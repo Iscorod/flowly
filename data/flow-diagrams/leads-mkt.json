@@ -1,14 +1,14 @@
 {
   "id": "leads-mkt",
   "title": "Leads - MKT",
-  "updatedAt": "2026-10-20T10:51:43.029Z",
+  "updatedAt": "2026-10-20T10:59:20.617Z",
   "nodes": [
     {
       "id": "start-1792492489306",
       "type": "start",
       "label": "Lead",
-      "x": 585,
-      "y": 55,
+      "x": 586,
+      "y": 32,
       "description": "Recepción del Lead con sus datos"
     },
     {
@@ -53,7 +53,7 @@
     {
       "id": "decision-1792493046147",
       "type": "process",
-      "label": "¿Tiene cita ?",
+      "label": "¿Tiene cita asiganda en C2C?",
       "x": 592,
       "y": 682
     },
@@ -61,15 +61,59 @@
       "id": "process-1792493128014",
       "type": "decision",
       "label": "Si tiene",
-      "x": 271,
-      "y": 763
+      "x": 272.2214027581602,
+      "y": 784.9852496468831
     },
     {
       "id": "process-1792493131554",
       "type": "decision",
       "label": "No tiene",
-      "x": 912,
-      "y": 768
+      "x": 925.4354303397619,
+      "y": 788.7638468887229
+    },
+    {
+      "id": "process-1792493623206",
+      "type": "process",
+      "label": "¿Tiene la cita asignado el Nº solicitud de lead?",
+      "x": 270.48660453081783,
+      "y": 902.9183134694047
+    },
+    {
+      "id": "decision-1792493657790",
+      "type": "decision",
+      "label": "SI",
+      "x": -26.31426570210343,
+      "y": 1054.3722554812657
+    },
+    {
+      "id": "decision-1792493660550",
+      "type": "decision",
+      "label": "No",
+      "x": 546.5236278750162,
+      "y": 1047.0438389323047
+    },
+    {
+      "id": "process-1792493752152",
+      "type": "process",
+      "label": "Asignación a través de Nº de solicitud de lead",
+      "x": -26.314265702103512,
+      "y": 1264.453529884815,
+      "description": "Se le asigna a la cita la información del lead directamente"
+    },
+    {
+      "id": "process-1792493806251",
+      "type": "process",
+      "label": "Asignación a través de teléfono",
+      "x": 928.6335218983502,
+      "y": 1125.7138330041769,
+      "description": "Se hace una busqueda de "
+    },
+    {
+      "id": "process-1792493861495",
+      "type": "process",
+      "label": "Cita",
+      "x": 578.8606662580927,
+      "y": 1469.5156700968544
     }
   ],
   "edges": [
@@ -112,6 +156,38 @@
     {
       "from": "decision-1792493046147",
       "to": "process-1792493131554"
+    },
+    {
+      "from": "process-1792493128014",
+      "to": "process-1792493623206"
+    },
+    {
+      "from": "process-1792493623206",
+      "to": "decision-1792493657790"
+    },
+    {
+      "from": "process-1792493623206",
+      "to": "decision-1792493660550"
+    },
+    {
+      "from": "decision-1792493657790",
+      "to": "process-1792493752152"
+    },
+    {
+      "from": "process-1792493752152",
+      "to": "process-1792493861495"
+    },
+    {
+      "from": "process-1792493131554",
+      "to": "process-1792493806251"
+    },
+    {
+      "from": "decision-1792493660550",
+      "to": "process-1792493806251"
+    },
+    {
+      "from": "process-1792493806251",
+      "to": "process-1792493861495"
     }
   ]
 }
