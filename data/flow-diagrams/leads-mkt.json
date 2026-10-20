@@ -1,7 +1,7 @@
 {
   "id": "leads-mkt",
   "title": "Leads - MKT",
-  "updatedAt": "2026-10-20T12:04:19.631Z",
+  "updatedAt": "2026-10-20T13:34:54.684Z",
   "nodes": [
     {
       "id": "start-1792492489306",
@@ -17,21 +17,22 @@
       "label": "Normalización de teléfono",
       "x": 115.57979862899633,
       "y": -590.6997002247396,
-      "description": "Se normaliza el telefono y se comprueba si existe ya en la BBDD de Leads"
+      "description": "Se normaliza el teléfono, se eliminan espacios, guiones y +34"
     },
     {
       "id": "decision-1792492579888",
       "type": "process",
-      "label": "¿Existe ya el télefono?",
-      "x": 570.9836493952826,
-      "y": 100.22890846604443
+      "label": "¿Existe algún lead anterior con este teléfono?",
+      "x": 571.9772690322649,
+      "y": 88.3054728222562,
+      "description": "NUEVO PROCESO A IMPLEMENTAR"
     },
     {
       "id": "process-1792492598682",
       "type": "decision",
       "label": "SI",
-      "x": 315,
-      "y": 211.29431088491427,
+      "x": 340.83411056154114,
+      "y": 210.30069124793192,
       "description": "Lead antiguo."
     },
     {
@@ -112,8 +113,8 @@
       "id": "process-1792493861495",
       "type": "end",
       "label": "Asignacion de canales y camapaña a la CITA",
-      "x": 517.8501082289196,
-      "y": 2502.0732390199832
+      "x": 488.01361427609413,
+      "y": 2320.0706259077483
     },
     {
       "id": "decision-1792494052262",
@@ -196,8 +197,8 @@
       "id": "end-1792495678780",
       "type": "process",
       "label": "Leads_por_teléfono",
-      "x": 570.8284542334889,
-      "y": -121.86651459287435,
+      "x": 620.5094360826065,
+      "y": -140.74528769553905,
       "description": "Agrupa los leads por teléfono sin eliminar ninguno y los ordena de mas reciente a mas antiguo"
     },
     {
@@ -233,8 +234,8 @@
       "id": "process-1792496672851",
       "type": "process",
       "label": "Guarda en Buffer",
-      "x": 589.9810078773764,
-      "y": 327.5287149132486,
+      "x": 590.9746275143588,
+      "y": 461.6673659058662,
       "description": "Grupos disponibles para la consulta de cita"
     },
     {
@@ -257,8 +258,8 @@
       "id": "process-1792497787929",
       "type": "process",
       "label": "Guardar clasificación en cada lead",
-      "x": 592.5420609223954,
-      "y": 473.1292791834645
+      "x": 589.5612020114484,
+      "y": 328.0608121840411
     }
   ],
   "edges": [
@@ -407,19 +408,23 @@
       "to": "process-1792496161628"
     },
     {
-      "from": "process-1792492598682",
-      "to": "process-1792496672851"
+      "from": "end-1792495678780",
+      "to": "decision-1792492579888"
     },
     {
       "from": "process-1792492598847",
-      "to": "process-1792496672851"
+      "to": "process-1792497787929"
     },
     {
-      "from": "process-1792496672851",
+      "from": "process-1792492598682",
       "to": "process-1792497787929"
     },
     {
       "from": "process-1792497787929",
+      "to": "process-1792496672851"
+    },
+    {
+      "from": "process-1792496672851",
       "to": "process-1792492663638"
     }
   ]
