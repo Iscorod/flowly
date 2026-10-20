@@ -1,7 +1,7 @@
 {
   "id": "leads-mkt",
   "title": "Leads - MKT",
-  "updatedAt": "2026-10-20T13:53:32.969Z",
+  "updatedAt": "2026-10-20T14:24:44.535Z",
   "nodes": [
     {
       "id": "start-1792492489306",
@@ -15,8 +15,8 @@
       "id": "process-1792492510807",
       "type": "process",
       "label": "Normalización de teléfono",
-      "x": 115.57979862899633,
-      "y": -590.6997002247396,
+      "x": 69.33323300211693,
+      "y": -592.1915249223808,
       "description": "Se normaliza el teléfono, se eliminan espacios, guiones y +34"
     },
     {
@@ -25,164 +25,164 @@
       "label": "¿Existe algún lead anterior con este teléfono?",
       "x": 563.4274497251438,
       "y": 229.98819276883592,
-      "description": "NUEVO PROCESO A IMPLEMENTAR"
+      "description": "NUEVO PROCESO A IMPLEMENTAR\n\nSi dos coinciden en fecha y hora, habría que desempatar por idLead"
     },
     {
       "id": "process-1792492598682",
       "type": "decision",
       "label": "SI",
-      "x": 310.2990416075369,
-      "y": 411.8321463443599,
+      "x": 293.8889699334829,
+      "y": 483.4397318311409,
       "description": "Lead antiguo."
     },
     {
       "id": "process-1792492598847",
       "type": "decision",
       "label": "NO",
-      "x": 873.037469331405,
-      "y": 409.8584671907772,
+      "x": 867.0701705408399,
+      "y": 484.44970207284075,
       "description": " Lead nuevo."
     },
     {
       "id": "process-1792492663638",
       "type": "end",
       "label": "Leads",
-      "x": 585.3521423302369,
-      "y": 1038.704829773504,
+      "x": 581.7079047294559,
+      "y": 1086.0799185836572,
       "description": ""
     },
     {
       "id": "decision-1792493046147",
       "type": "process",
       "label": "¿Tiene cita asiganda en C2C?",
-      "x": 585.622564269718,
-      "y": 1180.5757230858592
+      "x": 2314.4903492907947,
+      "y": 1336.9467687360673
     },
     {
       "id": "process-1792493128014",
       "type": "decision",
       "label": "Si tiene",
-      "x": 208.7084593338313,
-      "y": 1333.3950880607993
+      "x": 1957.0805442968017,
+      "y": 1570.5672703361863
     },
     {
       "id": "process-1792493131554",
       "type": "decision",
       "label": "No tiene",
-      "x": 943.7564717121644,
-      "y": 1332.2880742699986
+      "x": 2749.4998799159725,
+      "y": 1590.2210293731248
     },
     {
       "id": "process-1792493623206",
       "type": "process",
       "label": "¿Tiene la cita asignado el Nº solicitud de lead?",
-      "x": 206.97366110648898,
-      "y": 1485.5274291118058
+      "x": 1950.4019233125082,
+      "y": 1796.3806255987845
     },
     {
       "id": "decision-1792493657790",
       "type": "decision",
       "label": "SI",
-      "x": -38.52829328370513,
-      "y": 1650.4168014634286
+      "x": 1655.9380684954797,
+      "y": 1959.7753614932217
     },
     {
       "id": "decision-1792493660550",
       "type": "decision",
       "label": "No",
-      "x": 397.51249137947553,
-      "y": 1655.3024124960693
+      "x": 2208.979868083399,
+      "y": 1956.744290611826
     },
     {
       "id": "process-1792493752152",
       "type": "process",
       "label": "Asignación a través de Nº de solicitud de lead",
-      "x": -40.97109880002555,
-      "y": 1844.6198400108958,
+      "x": 1656.7062857075848,
+      "y": 2260.024218865163,
       "description": "Se le asigna a la cita la información del lead directamente"
     },
     {
       "id": "process-1792493806251",
       "type": "process",
       "label": "Asignación a través de teléfono 1 y teléfono 2",
-      "x": 779.8701971349305,
-      "y": 2729.3799824440543,
+      "x": 2301.1341854667453,
+      "y": 3424.3811740612973,
       "description": "Asignación del lead final"
     },
     {
       "id": "process-1792493861495",
       "type": "end",
       "label": "Asignacion de canales y camapaña a la CITA",
-      "x": -37.189571732778944,
-      "y": 2895.3513250011883
+      "x": 1667.686909743633,
+      "y": 3572.5952083337047
     },
     {
       "id": "decision-1792494052262",
       "type": "process",
       "label": "¿Lead anterior a la cita?",
-      "x": 945.793196469213,
-      "y": 1888.7766923658378,
+      "x": 2541.810188980191,
+      "y": 2600.342152282461,
       "description": "Lead anterior o igual que el día de la cita"
     },
     {
       "id": "decision-1792494134372",
       "type": "decision",
       "label": "SI",
-      "x": 781.6460727573301,
-      "y": 2102.9216512653707
+      "x": 2295.301637156801,
+      "y": 2823.1182838100517
     },
     {
       "id": "decision-1792494137418",
       "type": "decision",
       "label": "No",
-      "x": 1128.9234680206232,
-      "y": 2104.674889841502
+      "x": 2802.3416521288714,
+      "y": 2830.800826943068
     },
     {
       "id": "process-1792494169129",
       "type": "process",
       "label": "Búsqueda del lead mas reciente",
-      "x": 780.42466999917,
-      "y": 2255.236493486006
+      "x": 2298.6206350274906,
+      "y": 3019.5971921124146
     },
     {
       "id": "process-1792494297263",
       "type": "process",
       "label": "Selección del Lead ganador",
-      "x": 780.1542480596886,
-      "y": 2449.7325641803145,
+      "x": 2301.47191704457,
+      "y": 3182.313374253303,
       "description": "Mes más reciente → primer lead de ese mes (regla posterior)"
     },
     {
       "id": "end-1792494424552",
       "type": "end",
       "label": "Lead no contemplado",
-      "x": 1128.1775556718023,
-      "y": 2238.561863527627,
+      "x": 2804.8067625084755,
+      "y": 2988.692423699929,
       "description": "No se contempla este lead para la cita"
     },
     {
       "id": "process-1792494509848",
       "type": "process",
-      "label": "Búsqueda de la cita por teléfono",
-      "x": 947.3783291957465,
-      "y": 1588.0632389291002,
+      "label": "Cruce de citas con leads por teléfono",
+      "x": 2764.980346513324,
+      "y": 1787.8035265643127,
       "description": "Busca por los campos teléfono 1 y teléfono 2, \n\nEl lead no se haya generado mas haya de los 90 días anteriores de la cita"
     },
     {
       "id": "process-1792494553717",
       "type": "process",
       "label": "Canal",
-      "x": 349.461205287761,
-      "y": -591.3296578093574,
+      "x": 243.54165175523076,
+      "y": -594.31330720464,
       "description": "Obtiene canal mediante tabla listado."
     },
     {
       "id": "process-1792495568863",
       "type": "process",
       "label": "Campaña",
-      "x": 573.7270216027816,
-      "y": -589.471016435311,
+      "x": 440.9546235127085,
+      "y": -593.9464905282348,
       "description": "Obtiene campaña mediante leadpromocion"
     },
     {
@@ -199,7 +199,7 @@
       "label": "Leads_por_teléfono",
       "x": 563.1035064490785,
       "y": -40.590261526405115,
-      "description": "Agrupa los leads por teléfono sin eliminar ninguno y los ordena de mas reciente a mas antiguo"
+      "description": "agrupa todos los leads con teléfono no nulo ni vacío y los ordena de mas reciente a mas antiguo"
     },
     {
       "id": "process-1792496161628",
@@ -242,7 +242,7 @@
       "id": "process-1792496891877",
       "type": "process",
       "label": "Leads Antiguos",
-      "x": 801.2628878259259,
+      "x": 883.3132461961958,
       "y": -600.6942953970183,
       "description": "solo se mantienen leads desde el 1/1/2024, por optimización recursos"
     },
@@ -250,16 +250,143 @@
       "id": "process-1792496956535",
       "type": "process",
       "label": "Eliminacion de pruebas",
-      "x": 1009.4630147508879,
-      "y": -605.2024706993769,
+      "x": 1090.0215484235164,
+      "y": -603.7106460017357,
       "description": "Se eliminan aquellos leads con nombre test prueba o llamar"
     },
     {
       "id": "process-1792497787929",
       "type": "process",
       "label": "Guardar clasificación en cada lead",
-      "x": 585.8969937369677,
-      "y": 618.7546686261616
+      "x": 584.4051690393264,
+      "y": 688.8704294153013
+    },
+    {
+      "id": "process-1792504732151",
+      "type": "process",
+      "label": "¿Se encontraron dos leads distintos?",
+      "x": 2766.262058746552,
+      "y": 2191.948569667662,
+      "description": "Porque la cita "
+    },
+    {
+      "id": "decision-1792504757083",
+      "type": "decision",
+      "label": "Si",
+      "x": 2990.050534990963,
+      "y": 2402.125637772775
+    },
+    {
+      "id": "decision-1792504758207",
+      "type": "decision",
+      "label": "No",
+      "x": 2539.6466888624705,
+      "y": 2409.9145597760707
+    },
+    {
+      "id": "start-1792505088421",
+      "type": "start",
+      "label": "Citas",
+      "x": 2231.589137916245,
+      "y": -961.4816407497535,
+      "description": "Citas que aparecen en la BBDD"
+    },
+    {
+      "id": "process-1792505145811",
+      "type": "process",
+      "label": "Vista SQL",
+      "x": 2230.603656116312,
+      "y": -779.4800255133375,
+      "description": "v_citas_pv"
+    },
+    {
+      "id": "process-1792505167534",
+      "type": "process",
+      "label": "Datos de la cita",
+      "x": 1936.8322535553061,
+      "y": -601.4367512339401,
+      "description": "datos obtenidos de cita_extra y tipocita"
+    },
+    {
+      "id": "process-1792505167961",
+      "type": "process",
+      "label": "Tabla Citas",
+      "x": 2527.713370070056,
+      "y": -617.0155377333873,
+      "description": "Datos de todas las citas"
+    },
+    {
+      "id": "process-1792505168459",
+      "type": "process",
+      "label": "Datos del contacto",
+      "x": 2230.200209646978,
+      "y": -610.3389149479099,
+      "description": "Datos del contacto y telefonos"
+    },
+    {
+      "id": "process-1792505264677",
+      "type": "process",
+      "label": "Tabla Leads",
+      "x": 685.5977302600181,
+      "y": -593.7805407055375,
+      "description": "Datos de todos los leads"
+    },
+    {
+      "id": "process-1792505321078",
+      "type": "process",
+      "label": "¿La cita es PV o PV Derivada?",
+      "x": 2230.382204667554,
+      "y": -344.64581619944533
+    },
+    {
+      "id": "decision-1792505348396",
+      "type": "decision",
+      "label": "No",
+      "x": 2488.467877359494,
+      "y": -205.90611931880713
+    },
+    {
+      "id": "decision-1792505348804",
+      "type": "decision",
+      "label": "SI",
+      "x": 1986.4688666032064,
+      "y": -199.93882052824205
+    },
+    {
+      "id": "end-1792505378622",
+      "type": "end",
+      "label": "No entra en v_citas_pv",
+      "x": 2492.943351452418,
+      "y": -11.968908625441877
+    },
+    {
+      "id": "process-1792505407378",
+      "type": "process",
+      "label": "Obtener Datos Citas",
+      "x": 1984.2311295567442,
+      "y": -7.493434532518078,
+      "description": "idCita, idContacto, fecha, hora, estado, clinica y tipo"
+    },
+    {
+      "id": "process-1792505446981",
+      "type": "process",
+      "label": "Incorporación datos de Contacto",
+      "x": 1985.7229542543855,
+      "y": 269.98595922875836
+    },
+    {
+      "id": "end-1792505475812",
+      "type": "end",
+      "label": "Cita preparada",
+      "x": 2269.0265046959316,
+      "y": 424.9596882548203
+    },
+    {
+      "id": "start-1792506088186",
+      "type": "start",
+      "label": "Carga en Power BI",
+      "x": 2299.0897989267046,
+      "y": 1034.2327147940455
     }
   ],
   "edges": [
@@ -270,10 +397,6 @@
     {
       "from": "decision-1792492579888",
       "to": "process-1792492598682"
-    },
-    {
-      "from": "process-1792492663638",
-      "to": "decision-1792493046147"
     },
     {
       "from": "decision-1792492579888",
@@ -338,10 +461,6 @@
     {
       "from": "process-1792493131554",
       "to": "process-1792494509848"
-    },
-    {
-      "from": "process-1792494509848",
-      "to": "decision-1792494052262"
     },
     {
       "from": "process-1792493806251",
@@ -426,14 +545,102 @@
     {
       "from": "process-1792496672851",
       "to": "process-1792492663638"
+    },
+    {
+      "from": "process-1792494509848",
+      "to": "process-1792504732151"
+    },
+    {
+      "from": "decision-1792504758207",
+      "to": "decision-1792494052262"
+    },
+    {
+      "from": "process-1792504732151",
+      "to": "decision-1792504758207"
+    },
+    {
+      "from": "process-1792504732151",
+      "to": "decision-1792504757083"
+    },
+    {
+      "from": "start-1792505088421",
+      "to": "process-1792505145811"
+    },
+    {
+      "from": "process-1792505145811",
+      "to": "process-1792505167961"
+    },
+    {
+      "from": "process-1792505145811",
+      "to": "process-1792505168459"
+    },
+    {
+      "from": "process-1792505145811",
+      "to": "process-1792505167534"
+    },
+    {
+      "from": "process-1792495646646",
+      "to": "process-1792505264677"
+    },
+    {
+      "from": "process-1792505264677",
+      "to": "process-1792496161628"
+    },
+    {
+      "from": "process-1792505167534",
+      "to": "process-1792505321078"
+    },
+    {
+      "from": "process-1792505168459",
+      "to": "process-1792505321078"
+    },
+    {
+      "from": "process-1792505167961",
+      "to": "process-1792505321078"
+    },
+    {
+      "from": "process-1792505321078",
+      "to": "decision-1792505348804"
+    },
+    {
+      "from": "process-1792505321078",
+      "to": "decision-1792505348396"
+    },
+    {
+      "from": "decision-1792505348396",
+      "to": "end-1792505378622"
+    },
+    {
+      "from": "decision-1792505348804",
+      "to": "process-1792505407378"
+    },
+    {
+      "from": "process-1792505407378",
+      "to": "process-1792505446981"
+    },
+    {
+      "from": "process-1792505446981",
+      "to": "end-1792505475812"
+    },
+    {
+      "from": "process-1792492663638",
+      "to": "start-1792506088186"
+    },
+    {
+      "from": "start-1792506088186",
+      "to": "decision-1792493046147"
+    },
+    {
+      "from": "end-1792505475812",
+      "to": "start-1792506088186"
     }
   ],
   "annotations": [
     {
       "id": "75198954-c4b3-453e-8e4f-2a6e1a8a798b",
       "type": "square",
-      "width": 864,
-      "height": 381,
+      "width": 874.4427728834889,
+      "height": 467.52583246319375,
       "text": "",
       "color": "#9b8ac0",
       "fontSize": 20,
@@ -463,17 +670,6 @@
       "y": -801.8633489032858
     },
     {
-      "id": "da11c39b-f845-4017-9dea-20e0fea16e8c",
-      "type": "square",
-      "width": 1388.289514032817,
-      "height": 1094.5181114718112,
-      "text": "",
-      "color": "#9b8ac0",
-      "fontSize": 20,
-      "x": -43.09041976618759,
-      "y": -92.86510020369694
-    },
-    {
       "id": "35bdc448-e989-4f59-8a68-d3dda8577810",
       "type": "text",
       "width": 260,
@@ -492,8 +688,63 @@
       "text": "Table buffer leads_por_telefono",
       "color": "#9b8ac0",
       "fontSize": 20,
-      "x": 1354.5193605339527,
-      "y": -60.36790681944552
+      "x": 1248.8364701113032,
+      "y": -16.637055610073283
+    },
+    {
+      "id": "24ed1596-0a99-4a83-8ab2-0d22084efe00",
+      "type": "square",
+      "width": 889.3339193451139,
+      "height": 1424.991691684918,
+      "text": "",
+      "color": "#9b8ac0",
+      "fontSize": 20,
+      "x": 1882.0589933669917,
+      "y": -841.4021044690749
+    },
+    {
+      "id": "cffaf1c2-4616-42b9-8045-2948306db975",
+      "type": "square",
+      "width": 899.0181968611183,
+      "height": 1045.7890415666216,
+      "text": "",
+      "color": "#9b8ac0",
+      "fontSize": 20,
+      "x": 1535.7560358008052,
+      "y": 1503.6269921264832
+    },
+    {
+      "id": "59fc36df-3d30-40ad-a719-85701a2ff547",
+      "type": "text",
+      "width": 260,
+      "height": 100,
+      "text": "Nueva metedologia a implantar",
+      "color": "#9b8ac0",
+      "fontSize": 20,
+      "x": 1270.5126650460381,
+      "y": 1535.5384020670115
+    },
+    {
+      "id": "e9ab9c4b-b441-431f-9e46-7a4b246a9310",
+      "type": "square",
+      "width": 1109.0207473733863,
+      "height": 1076.2226089663573,
+      "text": "",
+      "color": "#9b8ac0",
+      "fontSize": 20,
+      "x": 137.30626065495125,
+      "y": -71.92427152639453
+    },
+    {
+      "id": "33b16d7f-1ace-4072-980b-9a8da836f36e",
+      "type": "text",
+      "width": 260,
+      "height": 100,
+      "text": "Vista v_citas_pv",
+      "color": "#9b8ac0",
+      "fontSize": 20,
+      "x": 2778.2209453887554,
+      "y": -797.2117892852866
     }
   ]
 }
