@@ -16,6 +16,7 @@ const seed = {
 };
 const shapes = { start: "Inicio", process: "Proceso", decision: "Decisión", end: "Final" };
 const icon = { start: "▶", process: "□", decision: "◇", end: "●" };
+const annotations = { circle: "Círculo", square: "Cuadrado", triangle: "Triángulo", text: "Texto libre" };
 const slug = (text) => text.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "diagrama";
 
 function App() {
@@ -46,11 +47,14 @@ function App() {
     return () => element.removeEventListener("wheel", wheel);
   }, [zoomAt]);
   const fitAll = () => {
-    if (!diagram.nodes.length) { setView({ x: 0, y: 0, zoom: 1 }); return; }
-    const left = Math.min(...diagram.nodes.map(n => n.x)) - 40;
-    const top = Math.min(...diagram.nodes.map(n => n.y)) - 70;
-    const right = Math.max(...diagram.nodes.map(n => n.x + 190));
-    const bottom = Math.max(...diagram.nodes.map(n => n.y + (nodeHeights[n.id] || 55) + 70));
+    const elements = [...canvas.current.querySelectorAll(".annotation")];
+    const items = [...diagram.nodes.map(n => ({...n, width:150, height:nodeHeights[n.id] || 55})),
+      ...(diagram.annotations || []).map((a,i) => ({...a,height:Math.max(a.height,elements[i]?.scrollHeight || 0)}))];
+    if (!items.length) { setView({ x: 0, y: 0, zoom: 1 }); return; }
+    const left = Math.min(...items.map(n => n.x)) - 40;
+    const top = Math.min(...items.map(n => n.y)) - 70;
+    const right = Math.max(...items.map(n => n.x + n.width + 40));
+    const bottom = Math.max(...items.map(n => n.y + n.height + 70));
     const { clientWidth: w, clientHeight: h } = viewport.current;
     const zoom = Math.min(1, w / (right - left), h / (bottom - top));
     setView({ zoom, x: (w - (right - left) * zoom) / 2 - left * zoom, y: (h - (bottom - top) * zoom) / 2 - top * zoom });
@@ -69,6 +73,17 @@ function App() {
   }, [diagram.nodes]);
   useEffect(() => { fetch("/api/diagrams").then(r => r.ok ? r.json() : []).then(setSaved).catch(() => {}); }, []);
   const selectedNode = diagram.nodes.find(n => n.id === selected);
+  const annotation = (diagram.annotations || []).find(a => a.id === selected);
+  const updateAnnotation = (id, patch) => setDiagram(d => ({...d, annotations:(d.annotations || []).map(a => a.id === id ? {...a,...patch} : a)}));
+  const addAnnotation = type => {
+    const id = crypto.randomUUID();
+    const width = type === "text" ? 260 : 300, height = type === "text" ? 100 : 300;
+    const item = {id,type,width,height,text:type === "text" ? "Escribe aquí…" : "",color:"#9b8ac0",fontSize:20,
+      x:(viewport.current.clientWidth/2-view.x)/view.zoom-width/2,
+      y:(viewport.current.clientHeight/2-view.y)/view.zoom-height/2};
+    setDiagram(d => ({...d,annotations:[...(d.annotations || []),item]}));
+    setSelected(id); setSelectedEdge(null); setConnecting(null);
+  };
   const edge = selectedEdge === null ? null : diagram.edges[selectedEdge];
   const visibleRelations = diagram.edges
     .map((relation, index) => ({ relation, index }))
@@ -100,12 +115,13 @@ function App() {
       ...d,
       nodes: d.nodes.filter(n => n.id !== selected),
       edges: d.edges.filter(e => e.from !== selected && e.to !== selected),
+      annotations: (d.annotations || []).filter(a => a.id !== selected),
     }));
     setSelected(null);
     setSelectedEdge(null);
     setConnecting(null);
     drag.current = null;
-    setNotice("Bloque eliminado · pulsa Guardar");
+    setNotice("Elemento eliminado · pulsa Guardar");
   }, [selected]);
   useEffect(() => {
     const handleDelete = event => {
@@ -132,7 +148,14 @@ function App() {
     const dx = e.clientX - active.startX, dy = e.clientY - active.startY;
     if (Math.hypot(dx, dy) < 4 && !moved.current) return;
     moved.current = true;
-    if (active.id) updateNode(active.id, { x: active.x + dx / view.zoom, y: active.y + dy / view.zoom });
+    if (active.annotation) {
+      if (active.resize) {
+        const width = Math.max(60, active.width + dx/view.zoom);
+        const height = active.type === "text" ? Math.max(40,active.height+dy/view.zoom) : width;
+        updateAnnotation(active.id,{width,height});
+      } else updateAnnotation(active.id,{x:active.x+dx/view.zoom,y:active.y+dy/view.zoom});
+    }
+    else if (active.id) updateNode(active.id, { x: active.x + dx / view.zoom, y: active.y + dy / view.zoom });
     else setView(v => ({ ...v, x: active.x + dx, y: active.y + dy }));
   };
   const getNode = (id) => diagram.nodes.find(n => n.id === id);
@@ -152,7 +175,10 @@ function App() {
   });
   return <div className="app">
     <header><div className="brand"><span>✦</span> flowly</div><div className="title"><input value={diagram.title} onChange={e => setDiagram(d => ({...d, title:e.target.value}))}/><small role="status">{notice}</small></div><button className="save export" onClick={() => { try { exportPdf(diagram, canvas.current); } catch (error) { setNotice(error.message); } }}>Exportar PDF</button><button className="save" onClick={save}>↥ Guardar</button></header>
-    <aside className="left"><p className="eyebrow">BLOQUES</p>{Object.entries(shapes).map(([type,name]) => <button className="tool" key={type} onClick={() => addNode(type)}><b>{icon[type]}</b>{name}<i>+</i></button>)}<div className="hint">Arrastra los bloques para organizarlos. Pulsa un bloque y después otro para unirlos.</div><p className="eyebrow saved-title">GUARDADOS</p>{saved.length ? saved.map(d => <button className="file" key={d.id} onClick={() => load(d.id)}>{d.title}<small>{d.updatedAt ? new Date(d.updatedAt).toLocaleDateString("es-ES") : "en GitHub"}</small></button>) : <p className="empty">Aún no hay diagramas en GitHub.</p>}</aside>
+    <aside className="left"><p className="eyebrow">BLOQUES</p>{Object.entries(shapes).map(([type,name]) => <button className="tool" key={type} onClick={() => addNode(type)}><b>{icon[type]}</b>{name}<i>+</i></button>)}
+    <p className="eyebrow saved-title">FIGURAS Y TEXTO</p>
+    {Object.entries(annotations).map(([type,name]) => <button className="tool" key={type} onClick={() => addAnnotation(type)}><b>{{circle:"○",square:"□",triangle:"△",text:"T"}[type]}</b>{name}<i>+</i></button>)}
+    <div className="hint">Mueve las figuras desde su contorno. Arrastra su esquina para cambiar el tamaño. Agrupan visualmente; los bloques se mueven por separado.</div><p className="eyebrow saved-title">GUARDADOS</p>{saved.length ? saved.map(d => <button className="file" key={d.id} onClick={() => load(d.id)}>{d.title}<small>{d.updatedAt ? new Date(d.updatedAt).toLocaleDateString("es-ES") : "en GitHub"}</small></button>) : <p className="empty">Aún no hay diagramas en GitHub.</p>}</aside>
     <main ref={viewport} className="canvas viewport" style={{backgroundPosition:`${view.x}px ${view.y}px`,backgroundSize:`${22*view.zoom}px ${22*view.zoom}px`}}
       onPointerDown={e => {
         if (e.button !== 0 || e.target.closest("button, [role='button']")) return;
@@ -164,6 +190,22 @@ function App() {
       onPointerCancel={() => { drag.current = null; moved.current = true; }}
       onClick={() => { if (!moved.current) { setSelected(null); setSelectedEdge(null); setConnecting(null); } }}>
       <div ref={canvas} className="world" style={{transform:`translate(${view.x}px, ${view.y}px) scale(${view.zoom})`}}>
+        {(diagram.annotations || []).map(a => <div key={a.id} className={`annotation ${a.type === "text" ? "annotation-text" : "annotation-shape"} ${selected === a.id ? "annotation-selected" : ""}`}
+          style={{left:a.x,top:a.y,width:a.width,height:a.height,color:a.color,fontSize:a.fontSize}}
+          role="button" tabIndex={0} aria-label={annotations[a.type]}
+          onKeyDown={e => { if(e.key === "Enter") {setSelected(a.id);setConnecting(null);} }}
+          onPointerDown={e => {
+            if(e.button !== 0) return;
+            e.stopPropagation(); moved.current=false; setSelected(a.id);setConnecting(null);setSelectedEdge(null);
+            drag.current={...a,annotation:true,resize:!!e.target.closest(".annotation-resize"),startX:e.clientX,startY:e.clientY};
+            e.currentTarget.setPointerCapture(e.pointerId);
+          }}
+          onClick={e => {e.stopPropagation();setSelected(a.id);setConnecting(null);}}>
+          {a.type === "text" ? <span className="annotation-copy">{a.text}</span> : <svg viewBox="0 0 100 100" width="100%" height="100%">
+            {a.type === "circle" ? <circle cx="50" cy="50" r="48"/> : a.type === "square" ? <rect x="2" y="2" width="96" height="96"/> : <polygon points="50,2 98,98 2,98"/>}
+          </svg>}
+          {selected === a.id && <span className="annotation-resize" title="Arrastra para cambiar el tamaño"/>}
+        </div>)}
         <svg className="edges" width="1" height="1"><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L0,9 L8,4.5 z"/></marker></defs>{paths}</svg>
         {diagram.nodes.map(n => <button key={n.id} className={`node ${n.type} ${selected===n.id?"selected":""} ${connecting===n.id?"connecting":""}`} style={{left:n.x,top:n.y}}
           onPointerDown={e => {
@@ -184,7 +226,13 @@ function App() {
         <span>Arrastra el fondo · Rueda para zoom</span>
       </div>
     </main>
-    <aside className="right"><p className="eyebrow">PROPIEDADES</p>{selectedNode ? <><label>Texto<input value={selectedNode.label} onChange={e => updateNode(selectedNode.id,{label:e.target.value})}/></label>
+    <aside className="right"><p className="eyebrow">PROPIEDADES</p>{annotation ? <>
+      <p>{annotations[annotation.type]}</p>
+      {annotation.type === "text" && <><label>Texto<textarea rows={6} value={annotation.text} onChange={e => updateAnnotation(annotation.id,{text:e.target.value})}/></label><label>Tamaño de letra<input type="number" min="10" max="96" value={annotation.fontSize} onChange={e => updateAnnotation(annotation.id,{fontSize:Math.max(10,Math.min(96,Number(e.target.value)||20))})}/></label></>}
+      <label>Color<input type="color" value={annotation.color} onChange={e => updateAnnotation(annotation.id,{color:e.target.value})}/></label>
+      <label>{annotation.type === "text" ? "Ancho" : "Tamaño"}<input type="number" min="60" value={annotation.width} onChange={e => {const width=Math.max(60,Number(e.target.value)||60);updateAnnotation(annotation.id,{width,...(annotation.type !== "text" ? {height:width} : {})});}}/></label>
+      <button className="delete" onClick={erase}>Eliminar elemento</button>
+    </> : selectedNode ? <><label>Texto<input value={selectedNode.label} onChange={e => updateNode(selectedNode.id,{label:e.target.value})}/></label>
       <label>Descripción (opcional)<textarea rows={5} value={selectedNode.description || ""} placeholder="Explica qué ocurre en este paso…" onChange={e => { updateNode(selectedNode.id,{description:e.target.value}); setNotice("Descripción modificada · pulsa Guardar"); }}/></label>
       <label>Tipo<select value={selectedNode.type} onChange={e => updateNode(selectedNode.id,{type:e.target.value})}>{Object.entries(shapes).map(([v,l])=><option key={v} value={v}>{l}</option>)}</select></label><button className="delete" onClick={erase}>Eliminar bloque</button><div className="tip"><b>Consejo</b>Para conectar: selecciona un bloque y haz clic en otro.</div></> : edge ? <>
       <label>Origen<select value={edge.from} onChange={e => updateEdge({from:e.target.value})}>{diagram.nodes.map(n => <option key={n.id} value={n.id} disabled={n.id===edge.to}>{n.label}</option>)}</select></label>
