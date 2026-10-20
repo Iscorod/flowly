@@ -70,6 +70,7 @@ export function exportPdf(diagram, canvas) {
   drawing.removeAttribute("class");
   drawing.className = "drawing";
   drawing.querySelectorAll(".edge-hit").forEach(node => node.remove());
+  drawing.querySelectorAll(".annotation-hit").forEach(node => node.remove());
   drawing.querySelectorAll(".annotation-resize").forEach(node => node.remove());
   drawing.querySelectorAll(".annotation-selected").forEach(node => node.classList.remove("annotation-selected"));
   drawing.querySelectorAll(".node").forEach(node => {

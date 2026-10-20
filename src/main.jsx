@@ -150,8 +150,10 @@ function App() {
     moved.current = true;
     if (active.annotation) {
       if (active.resize) {
-        const width = Math.max(60, active.width + dx/view.zoom);
-        const height = active.type === "text" ? Math.max(40,active.height+dy/view.zoom) : width;
+        const width = active.resize === "height" ? active.width : Math.max(60, active.width + dx/view.zoom);
+        const height = active.type === "text" || active.type === "square"
+          ? active.resize === "width" ? active.height : Math.max(60,active.height+dy/view.zoom)
+          : width;
         updateAnnotation(active.id,{width,height});
       } else updateAnnotation(active.id,{x:active.x+dx/view.zoom,y:active.y+dy/view.zoom});
     }
@@ -197,14 +199,21 @@ function App() {
           onPointerDown={e => {
             if(e.button !== 0) return;
             e.stopPropagation(); moved.current=false; setSelected(a.id);setConnecting(null);setSelectedEdge(null);
-            drag.current={...a,annotation:true,resize:!!e.target.closest(".annotation-resize"),startX:e.clientX,startY:e.clientY};
+            drag.current={...a,annotation:true,resize:e.target.closest(".annotation-resize")?.dataset.resize,startX:e.clientX,startY:e.clientY};
             e.currentTarget.setPointerCapture(e.pointerId);
           }}
           onClick={e => {e.stopPropagation();setSelected(a.id);setConnecting(null);}}>
-          {a.type === "text" ? <span className="annotation-copy">{a.text}</span> : <svg viewBox="0 0 100 100" width="100%" height="100%">
+          {a.type === "text" ? <span className="annotation-copy">{a.text}</span> : <svg viewBox="0 0 100 100" preserveAspectRatio="none" width="100%" height="100%">
+            {a.type === "square" && <rect className="annotation-hit" x="2" y="2" width="96" height="96"/>}
             {a.type === "circle" ? <circle cx="50" cy="50" r="48"/> : a.type === "square" ? <rect x="2" y="2" width="96" height="96"/> : <polygon points="50,2 98,98 2,98"/>}
           </svg>}
-          {selected === a.id && <span className="annotation-resize" title="Arrastra para cambiar el tamaño"/>}
+          {selected === a.id && <>
+            <span className="annotation-resize" data-resize="both" title="Arrastra para cambiar ancho y alto"/>
+            {a.type === "square" && <>
+              <span className="annotation-resize resize-width" data-resize="width" title="Arrastra para cambiar el ancho"/>
+              <span className="annotation-resize resize-height" data-resize="height" title="Arrastra para cambiar el alto"/>
+            </>}
+          </>}
         </div>)}
         <svg className="edges" width="1" height="1"><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L0,9 L8,4.5 z"/></marker></defs>{paths}</svg>
         {diagram.nodes.map(n => <button key={n.id} className={`node ${n.type} ${selected===n.id?"selected":""} ${connecting===n.id?"connecting":""}`} style={{left:n.x,top:n.y}}
@@ -230,7 +239,8 @@ function App() {
       <p>{annotations[annotation.type]}</p>
       {annotation.type === "text" && <><label>Texto<textarea rows={6} value={annotation.text} onChange={e => updateAnnotation(annotation.id,{text:e.target.value})}/></label><label>Tamaño de letra<input type="number" min="10" max="96" value={annotation.fontSize} onChange={e => updateAnnotation(annotation.id,{fontSize:Math.max(10,Math.min(96,Number(e.target.value)||20))})}/></label></>}
       <label>Color<input type="color" value={annotation.color} onChange={e => updateAnnotation(annotation.id,{color:e.target.value})}/></label>
-      <label>{annotation.type === "text" ? "Ancho" : "Tamaño"}<input type="number" min="60" value={annotation.width} onChange={e => {const width=Math.max(60,Number(e.target.value)||60);updateAnnotation(annotation.id,{width,...(annotation.type !== "text" ? {height:width} : {})});}}/></label>
+      <label>{annotation.type === "text" || annotation.type === "square" ? "Ancho" : "Tamaño"}<input type="number" min="60" value={annotation.width} onChange={e => {const width=Math.max(60,Number(e.target.value)||60);updateAnnotation(annotation.id,{width,...(!["text","square"].includes(annotation.type) ? {height:width} : {})});}}/></label>
+      {annotation.type === "square" && <label>Alto<input type="number" min="60" value={annotation.height} onChange={e => updateAnnotation(annotation.id,{height:Math.max(60,Number(e.target.value)||60)})}/></label>}
       <button className="delete" onClick={erase}>Eliminar elemento</button>
     </> : selectedNode ? <><label>Texto<input value={selectedNode.label} onChange={e => updateNode(selectedNode.id,{label:e.target.value})}/></label>
       <label>Descripción (opcional)<textarea rows={5} value={selectedNode.description || ""} placeholder="Explica qué ocurre en este paso…" onChange={e => { updateNode(selectedNode.id,{description:e.target.value}); setNotice("Descripción modificada · pulsa Guardar"); }}/></label>
