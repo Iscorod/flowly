@@ -70,6 +70,11 @@ function App() {
   useEffect(() => { fetch("/api/diagrams").then(r => r.ok ? r.json() : []).then(setSaved).catch(() => {}); }, []);
   const selectedNode = diagram.nodes.find(n => n.id === selected);
   const edge = selectedEdge === null ? null : diagram.edges[selectedEdge];
+  const visibleRelations = diagram.edges
+    .map((relation, index) => ({ relation, index }))
+    .filter(({ relation, index }) => selectedNode
+      ? relation.from === selectedNode.id || relation.to === selectedNode.id
+      : edge ? index === selectedEdge : true);
   const selectEdge = (index) => {
     setSelectedEdge(index); setSelected(null); setConnecting(null);
   };
@@ -189,9 +194,9 @@ function App() {
       <button className="delete" onClick={deleteEdge}>Eliminar relación</button>
       <button className="tool" onClick={() => setSelectedEdge(null)}>Cerrar selección</button>
     </> : <div className="tip"><b>Selecciona un bloque o una flecha</b>Edita los bloques o cambia y elimina sus relaciones.</div>}
-    <p className="eyebrow saved-title">RELACIONES</p>
-    {diagram.edges.map((relation, i) => <button className="file" key={i} aria-pressed={selectedEdge === i} onClick={() => selectEdge(i)}>{getNode(relation.from)?.label || "Bloque"} → {getNode(relation.to)?.label || "Bloque"}{relation.label && <small>{relation.label}</small>}</button>)}
-    {!diagram.edges.length && <p className="empty">Sin relaciones.</p>}
+    <p className="eyebrow saved-title">{selectedNode ? "RELACIONES DEL BLOQUE" : edge ? "RELACIÓN SELECCIONADA" : "TODAS LAS RELACIONES"} ({visibleRelations.length})</p>
+    {visibleRelations.map(({ relation, index }) => <button className="file" key={index} aria-pressed={selectedEdge === index} onClick={() => selectEdge(index)}>{getNode(relation.from)?.label || "Bloque"} → {getNode(relation.to)?.label || "Bloque"}{selectedNode && <small>{relation.from === selectedNode.id ? "Salida" : "Entrada"}</small>}{relation.label && <small>{relation.label}</small>}</button>)}
+    {!visibleRelations.length && <p className="empty">{selectedNode ? "Este bloque no tiene relaciones." : "Sin relaciones."}</p>}
     </aside>
   </div>;
 }
