@@ -1,7 +1,7 @@
 {
   "id": "leads-mkt",
   "title": "Leads - MKT",
-  "updatedAt": "2026-10-20T15:51:03.584Z",
+  "updatedAt": "2026-10-20T16:29:52.219Z",
   "nodes": [
     {
       "id": "start-1792492489306",
@@ -47,7 +47,7 @@
       "id": "process-1792492663638",
       "type": "end",
       "label": "Leads",
-      "x": 581.7079047294559,
+      "x": 584.6915541247384,
       "y": 1086.0799185836572,
       "description": ""
     },
@@ -104,7 +104,7 @@
     {
       "id": "process-1792493861495",
       "type": "end",
-      "label": "Asignacion de canales y camapaña a la CITA",
+      "label": "Citas ",
       "x": 2250.0470679076407,
       "y": 4410.359448148029
     },
@@ -370,7 +370,7 @@
     {
       "id": "end-1792505475812",
       "type": "end",
-      "label": "Cita preparada para PBI",
+      "label": "Citas para PBI",
       "x": 2269.0265046959316,
       "y": 424.9596882548203
     },
@@ -623,9 +623,47 @@
     {
       "id": "process-1792510941252",
       "type": "process",
-      "label": "Incorporar canales y camapaña de lead1 o lead2",
+      "label": "Incorporar campañas y canales de Lead1 y Lead2 de la cita seleccionada",
       "x": 1621.8358613254745,
       "y": 4902.949176422062
+    },
+    {
+      "id": "process-1792513181702",
+      "type": "process",
+      "label": "Filtros en Power BI, Citas Unitarias",
+      "x": 2770.4283641519164,
+      "y": 4566.430647835106
+    },
+    {
+      "id": "end-1792513435760",
+      "type": "end",
+      "label": "Es Cita Principal",
+      "x": 2475.486321969295,
+      "y": 4693.509647624305,
+      "description": "Esta fórmula utiliza la columna validacion, que en tu consulta cita se construye con:\nNombre del contacto + idContacto + canal de Lead1 + campaña de Lead1 + teléfono.\nPara cada grupo busca:\n1. La menor Prioridad Estado.\n2. La fecha fechafin más reciente dentro de esa prioridad.\n3. La mayor Diferencia fecha LEAD entre 0 y 90 días, dentro de esa prioridad y fecha.\n4. Marca como «Principal» las filas que cumplen simultáneamente esas condiciones.\nEl resto queda como «Duplicado»."
+    },
+    {
+      "id": "end-1792513437828",
+      "type": "end",
+      "label": "Validación Cita Unitaria",
+      "x": 2769.876783825506,
+      "y": 4779.234345607374,
+      "description": "Primero comprueba si la cita es «Principal».\nDespués busca, para el mismo idContacto y la misma FECHA LEAD, si existe alguna PV principal.\n- Si existe una PV principal, marca como unitaria la PV y descarta PV Derivada.\n- Si no existe una PV principal, marca como unitaria la PV Derivada y descarta PV.\nPor tanto, la regla es:\nPrioridad: PV principal → PV Derivada principal."
+    },
+    {
+      "id": "end-1792513499910",
+      "type": "end",
+      "label": "Cita válida Final",
+      "x": 3008.140819714113,
+      "y": 4690.514776495505,
+      "description": "Esta fórmula aplica:\n- Si FECHA LEAD = 0 → Sin Cita.\n- Si Canal Final es Internet - email_mkt o Internet - Sms → Cita válida.\n- Para el resto → Cita válida si Diferencia fecha LEAD está entre 0 y 90 días, ambos incluidos.\n- En caso contrario → Cita no válida."
+    },
+    {
+      "id": "end-1792513689271",
+      "type": "end",
+      "label": "Presupuesto",
+      "x": 1621.9433336965017,
+      "y": 5138.65541495284
     }
   ],
   "edges": [
@@ -1012,6 +1050,26 @@
     {
       "from": "process-1792510912836",
       "to": "process-1792510941252"
+    },
+    {
+      "from": "process-1792493861495",
+      "to": "process-1792513181702"
+    },
+    {
+      "from": "process-1792513181702",
+      "to": "end-1792513437828"
+    },
+    {
+      "from": "process-1792513181702",
+      "to": "end-1792513435760"
+    },
+    {
+      "from": "process-1792513181702",
+      "to": "end-1792513499910"
+    },
+    {
+      "from": "process-1792510941252",
+      "to": "end-1792513689271"
     }
   ],
   "annotations": [
@@ -1146,6 +1204,17 @@
       "fontSize": 20,
       "x": 1369.0403206646338,
       "y": 2868.2718000552704
+    },
+    {
+      "id": "1f832000-34d0-4b00-8513-59d624119cd9",
+      "type": "square",
+      "width": 792.4048261904252,
+      "height": 715.2008938209681,
+      "text": "",
+      "color": "#9b8ac0",
+      "fontSize": 20,
+      "x": 2420.065437540857,
+      "y": 4506.816863196559
     }
   ]
 }
