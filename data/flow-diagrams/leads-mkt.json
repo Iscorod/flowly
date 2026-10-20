@@ -1,7 +1,7 @@
 {
   "id": "leads-mkt",
   "title": "Leads - MKT",
-  "updatedAt": "2026-10-20T11:56:27.286Z",
+  "updatedAt": "2026-10-20T12:04:19.631Z",
   "nodes": [
     {
       "id": "start-1792492489306",
@@ -23,39 +23,39 @@
       "id": "decision-1792492579888",
       "type": "process",
       "label": "¿Existe ya el télefono?",
-      "x": 588,
-      "y": 352
+      "x": 570.9836493952826,
+      "y": 100.22890846604443
     },
     {
       "id": "process-1792492598682",
       "type": "decision",
       "label": "SI",
-      "x": 300,
-      "y": 436,
-      "description": "Es Paciente Antiguo"
+      "x": 315,
+      "y": 211.29431088491427,
+      "description": "Lead antiguo."
     },
     {
       "id": "process-1792492598847",
       "type": "decision",
       "label": "NO",
-      "x": 887,
-      "y": 430,
-      "description": "Es Paciente Nuevo"
+      "x": 809.5245259070762,
+      "y": 208.3270120943492,
+      "description": " Lead nuevo."
     },
     {
       "id": "process-1792492663638",
       "type": "end",
       "label": "Leads",
       "x": 589.0163506047174,
-      "y": 569.4427728834889,
+      "y": 611.2138644174445,
       "description": ""
     },
     {
       "id": "decision-1792493046147",
       "type": "process",
       "label": "¿Tiene cita asiganda en C2C?",
-      "x": 592,
-      "y": 682
+      "x": 590.5081753023587,
+      "y": 723.7710915339555
     },
     {
       "id": "process-1792493128014",
@@ -172,7 +172,7 @@
       "id": "process-1792494553717",
       "type": "process",
       "label": "Canal",
-      "x": 309.1819384514467,
+      "x": 349.461205287761,
       "y": -591.3296578093574,
       "description": "Obtiene canal mediante tabla listado."
     },
@@ -180,7 +180,7 @@
       "id": "process-1792495568863",
       "type": "process",
       "label": "Campaña",
-      "x": 512.5622089994895,
+      "x": 573.7270216027816,
       "y": -589.471016435311,
       "description": "Obtiene campaña mediante leadpromocion"
     },
@@ -196,62 +196,69 @@
       "id": "end-1792495678780",
       "type": "process",
       "label": "Leads_por_teléfono",
-      "x": 578.8284542334889,
-      "y": -346.70170198958226,
+      "x": 570.8284542334889,
+      "y": -121.86651459287435,
       "description": "Agrupa los leads por teléfono sin eliminar ninguno y los ordena de mas reciente a mas antiguo"
     },
     {
       "id": "process-1792496161628",
       "type": "process",
       "label": "¿Tiene teléfono valido?",
-      "x": 579.80406199755,
-      "y": -131.8104127598365,
+      "x": 563.80406199755,
+      "y": -380.8104127598365,
       "description": "Teléfonos vacíos o nulos"
     },
     {
       "id": "decision-1792496567309",
       "type": "decision",
       "label": "SI",
-      "x": 580.4728325750178,
-      "y": 54.216746867499324
+      "x": 425.74948629909716,
+      "y": -214.06251996881497
     },
     {
       "id": "decision-1792496568991",
       "type": "decision",
       "label": "No",
-      "x": 852.7308398945496,
-      "y": -6.948065735792753
+      "x": 902.7308398945496,
+      "y": -221.94806573579274
     },
     {
       "id": "end-1792496587093",
       "type": "end",
       "label": "No se contempla en la busqueda",
-      "x": 851.9849275457291,
-      "y": 124.33250765663905
+      "x": 911.9849275457291,
+      "y": -23.667492343360948
     },
     {
       "id": "process-1792496672851",
       "type": "process",
       "label": "Guarda en Buffer",
-      "x": 580.4728325750177,
-      "y": 170.57907328351848,
+      "x": 589.9810078773764,
+      "y": 327.5287149132486,
       "description": "Grupos disponibles para la consulta de cita"
     },
     {
       "id": "process-1792496891877",
       "type": "process",
       "label": "Leads Antiguos",
-      "x": 950.4453575900529,
-      "y": -581.3005743276818,
+      "x": 801.2628878259259,
+      "y": -600.6942953970183,
       "description": "solo se mantienen leads desde el 1/1/2024, por optimización recursos"
     },
     {
       "id": "process-1792496956535",
       "type": "process",
       "label": "Eliminacion de pruebas",
-      "x": 731.1471270367862,
-      "y": -590.2515225135294,
+      "x": 1009.4630147508879,
+      "y": -605.2024706993769,
       "description": "Se eliminan aquellos leads con nombre test prueba o llamar"
+    },
+    {
+      "id": "process-1792497787929",
+      "type": "process",
+      "label": "Guardar clasificación en cada lead",
+      "x": 592.5420609223954,
+      "y": 473.1292791834645
     }
   ],
   "edges": [
@@ -262,14 +269,6 @@
     {
       "from": "decision-1792492579888",
       "to": "process-1792492598682"
-    },
-    {
-      "from": "process-1792492598682",
-      "to": "process-1792492663638"
-    },
-    {
-      "from": "process-1792492598847",
-      "to": "process-1792492663638"
     },
     {
       "from": "process-1792492663638",
@@ -364,22 +363,6 @@
       "to": "process-1792495568863"
     },
     {
-      "from": "end-1792495678780",
-      "to": "process-1792496161628"
-    },
-    {
-      "from": "process-1792495568863",
-      "to": "end-1792495678780"
-    },
-    {
-      "from": "process-1792492510807",
-      "to": "end-1792495678780"
-    },
-    {
-      "from": "process-1792494553717",
-      "to": "end-1792495678780"
-    },
-    {
       "from": "process-1792496161628",
       "to": "decision-1792496567309"
     },
@@ -392,28 +375,52 @@
       "to": "end-1792496587093"
     },
     {
-      "from": "decision-1792496567309",
-      "to": "process-1792496672851"
-    },
-    {
       "from": "process-1792495646646",
       "to": "process-1792496891877"
-    },
-    {
-      "from": "process-1792496891877",
-      "to": "end-1792495678780"
     },
     {
       "from": "process-1792495646646",
       "to": "process-1792496956535"
     },
     {
-      "from": "process-1792496956535",
+      "from": "decision-1792496567309",
       "to": "end-1792495678780"
     },
     {
+      "from": "process-1792496891877",
+      "to": "process-1792496161628"
+    },
+    {
+      "from": "process-1792496956535",
+      "to": "process-1792496161628"
+    },
+    {
+      "from": "process-1792495568863",
+      "to": "process-1792496161628"
+    },
+    {
+      "from": "process-1792494553717",
+      "to": "process-1792496161628"
+    },
+    {
+      "from": "process-1792492510807",
+      "to": "process-1792496161628"
+    },
+    {
+      "from": "process-1792492598682",
+      "to": "process-1792496672851"
+    },
+    {
+      "from": "process-1792492598847",
+      "to": "process-1792496672851"
+    },
+    {
       "from": "process-1792496672851",
-      "to": "decision-1792492579888"
+      "to": "process-1792497787929"
+    },
+    {
+      "from": "process-1792497787929",
+      "to": "process-1792492663638"
     }
   ]
 }
