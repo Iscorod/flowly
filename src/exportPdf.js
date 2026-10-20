@@ -1,3 +1,5 @@
+import blockStyles from "./blocks.css?raw";
+
 // A separate document keeps editor controls out of the PDF and preserves SVG
 // connections as vectors. Text is inserted through DOM APIs, never as markup.
 export function exportPdf(diagram, canvas) {
@@ -31,6 +33,7 @@ export function exportPdf(diagram, canvas) {
     button { padding: 10px 16px; cursor: pointer; }
     @media print { .actions { display: none; } body { print-color-adjust: exact; } }
   `;
+  style.textContent += blockStyles;
   doc.head.append(style);
   const title = doc.createElement("h1");
   title.textContent = diagram.title || "Diagrama";
@@ -52,16 +55,18 @@ export function exportPdf(diagram, canvas) {
   });
   // Include off-screen nodes and the control points of the Bézier connections.
   const nodes = [...canvas.querySelectorAll(".node")];
-  const width = Math.max(180, ...diagram.nodes.map(n => n.x + 190));
+  const left = diagram.nodes.length ? Math.min(...diagram.nodes.map(n => n.x)) - 50 : 0;
+  const top = diagram.nodes.length ? Math.min(...diagram.nodes.map(n => n.y)) - 70 : 0;
+  const width = Math.max(180, ...diagram.nodes.map(n => n.x + 200 - left));
   const height = Math.max(100, ...diagram.nodes.map((n, i) =>
-    n.y + Math.max(110, nodes[i]?.offsetHeight || 55) + 30));
+    n.y + Math.max(110, nodes[i]?.offsetHeight || 55) + 70 - top));
   drawing.style.width = `${width}px`;
   drawing.style.height = `${height}px`;
   drawing.querySelector("svg")?.setAttribute("height", String(height));
   sheet.append(drawing);
   doc.body.append(actions, title, sheet);
   const scale = Math.min(sheet.clientWidth / width, sheet.clientHeight / height, 1);
-  drawing.style.transform = `scale(${scale})`;
+  drawing.style.transform = `scale(${scale}) translate(${-left}px, ${-top}px)`;
   popup.requestAnimationFrame(() => {
     popup.requestAnimationFrame(() => { popup.focus(); popup.print(); });
   });

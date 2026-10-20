@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
+import "./blocks.css";
 import { exportPdf } from "./exportPdf.js";
 
 const seed = {
@@ -25,6 +26,35 @@ function App() {
   const [connecting, setConnecting] = useState(null);
   const [notice, setNotice] = useState("Listo para dibujar");
   const drag = useRef(null); const canvas = useRef(null);
+  const viewport = useRef(null);
+  const moved = useRef(false);
+  const [view, setView] = useState({ x: 0, y: 0, zoom: 1 });
+  const zoomAt = useCallback((factor, x, y) => {
+    setView(v => {
+      const zoom = Math.max(0.1, Math.min(3, v.zoom * factor));
+      return { zoom, x: x - (x - v.x) * zoom / v.zoom, y: y - (y - v.y) * zoom / v.zoom };
+    });
+  }, []);
+  useEffect(() => {
+    const element = viewport.current;
+    const wheel = e => {
+      e.preventDefault();
+      const rect = element.getBoundingClientRect();
+      zoomAt(Math.exp(-Math.max(-100, Math.min(100, e.deltaY)) * 0.002), e.clientX - rect.left, e.clientY - rect.top);
+    };
+    element.addEventListener("wheel", wheel, { passive: false });
+    return () => element.removeEventListener("wheel", wheel);
+  }, [zoomAt]);
+  const fitAll = () => {
+    if (!diagram.nodes.length) { setView({ x: 0, y: 0, zoom: 1 }); return; }
+    const left = Math.min(...diagram.nodes.map(n => n.x)) - 40;
+    const top = Math.min(...diagram.nodes.map(n => n.y)) - 70;
+    const right = Math.max(...diagram.nodes.map(n => n.x + 190));
+    const bottom = Math.max(...diagram.nodes.map(n => n.y + (nodeHeights[n.id] || 55) + 70));
+    const { clientWidth: w, clientHeight: h } = viewport.current;
+    const zoom = Math.min(1, w / (right - left), h / (bottom - top));
+    setView({ zoom, x: (w - (right - left) * zoom) / 2 - left * zoom, y: (h - (bottom - top) * zoom) / 2 - top * zoom });
+  };
   const [nodeHeights, setNodeHeights] = useState({});
   useLayoutEffect(() => {
     const elements = [...canvas.current.querySelectorAll(".node")];
@@ -56,7 +86,7 @@ function App() {
   const updateNode = (id, patch) => setDiagram(d => ({ ...d, nodes: d.nodes.map(n => n.id === id ? { ...n, ...patch } : n) }));
   const addNode = (type) => {
     const id = `${type}-${Date.now()}`;
-    const n = { id, type, label: type === "decision" ? "Nueva decisión" : "Nuevo paso", x: 300 + (diagram.nodes.length % 3) * 45, y: 130 + (diagram.nodes.length % 4) * 75 };
+    const n = { id, type, label: type === "decision" ? "Nueva decisión" : "Nuevo paso", x: (viewport.current.clientWidth / 2 - view.x) / view.zoom - 75, y: (viewport.current.clientHeight / 2 - view.y) / view.zoom - 28 };
     setDiagram(d => ({ ...d, nodes: [...d.nodes, n] })); setSelected(id); setNotice("Nodo añadido");
   };
   const erase = useCallback(() => {
@@ -91,7 +121,15 @@ function App() {
     try { const r = await fetch(`/api/diagrams?id=${encodeURIComponent(id)}`, { method: "PUT", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }); if (!r.ok) throw new Error((await r.json()).error); setDiagram(payload); setSaved(list => [{ id, title: payload.title, updatedAt: payload.updatedAt }, ...list.filter(x => x.id !== id)]); setNotice("Guardado en GitHub ✓"); } catch (e) { setNotice(e.message || "No se pudo guardar"); }
   };
   const load = async (id) => { try { const r = await fetch(`/api/diagrams?id=${encodeURIComponent(id)}`); if (!r.ok) throw Error(); const data = await r.json(); setDiagram(data); setSelected(data.nodes[0]?.id); setNotice("Diagrama cargado"); } catch { setNotice("No se pudo cargar ese diagrama"); } };
-  const onMove = (e) => { if (!drag.current) return; const rect = canvas.current.getBoundingClientRect(); updateNode(drag.current, { x: Math.max(15, e.clientX - rect.left - 75), y: Math.max(15, e.clientY - rect.top - 28) }); };
+  const onMove = e => {
+    const active = drag.current;
+    if (!active) return;
+    const dx = e.clientX - active.startX, dy = e.clientY - active.startY;
+    if (Math.hypot(dx, dy) < 4 && !moved.current) return;
+    moved.current = true;
+    if (active.id) updateNode(active.id, { x: active.x + dx / view.zoom, y: active.y + dy / view.zoom });
+    else setView(v => ({ ...v, x: active.x + dx, y: active.y + dy }));
+  };
   const getNode = (id) => diagram.nodes.find(n => n.id === id);
   const paths = diagram.edges.map((edge, i) => {
     const a = getNode(edge.from), b = getNode(edge.to);
@@ -107,10 +145,40 @@ function App() {
       <text x={(x1+x2)/2+9} y={(y1+y2)/2}>{edge.label}</text>
     </g>;
   });
-  return <div className="app" onMouseMove={onMove} onMouseUp={() => drag.current = null}>
+  return <div className="app">
     <header><div className="brand"><span>✦</span> flowly</div><div className="title"><input value={diagram.title} onChange={e => setDiagram(d => ({...d, title:e.target.value}))}/><small role="status">{notice}</small></div><button className="save export" onClick={() => { try { exportPdf(diagram, canvas.current); } catch (error) { setNotice(error.message); } }}>Exportar PDF</button><button className="save" onClick={save}>↥ Guardar</button></header>
     <aside className="left"><p className="eyebrow">BLOQUES</p>{Object.entries(shapes).map(([type,name]) => <button className="tool" key={type} onClick={() => addNode(type)}><b>{icon[type]}</b>{name}<i>+</i></button>)}<div className="hint">Arrastra los bloques para organizarlos. Pulsa un bloque y después otro para unirlos.</div><p className="eyebrow saved-title">GUARDADOS</p>{saved.length ? saved.map(d => <button className="file" key={d.id} onClick={() => load(d.id)}>{d.title}<small>{d.updatedAt ? new Date(d.updatedAt).toLocaleDateString("es-ES") : "en GitHub"}</small></button>) : <p className="empty">Aún no hay diagramas en GitHub.</p>}</aside>
-    <main ref={canvas} className="canvas" onClick={() => { setSelected(null); setConnecting(null); }}><svg className="edges" width="100%" height="100%"><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L0,9 L8,4.5 z"/></marker></defs>{paths}</svg>{diagram.nodes.map(n => <button key={n.id} className={`node ${n.type} ${selected===n.id?"selected":""} ${connecting===n.id?"connecting":""}`} style={{left:n.x,top:n.y}} onMouseDown={e => { e.stopPropagation(); drag.current=n.id; }} onClick={e => { e.stopPropagation(); if (connecting && connecting!==n.id) { setDiagram(d=>({...d,edges:[...d.edges,{from:connecting,to:n.id}]}));setConnecting(null);setNotice("Conexión creada"); } else { setSelected(n.id); setConnecting(n.id); } }}><span className="grip">⠿</span><strong>{n.label}</strong><small>{shapes[n.type]}</small>{n.description && <span className="node-description">{n.description}</span>}</button>)}</main>
+    <main ref={viewport} className="canvas viewport" style={{backgroundPosition:`${view.x}px ${view.y}px`,backgroundSize:`${22*view.zoom}px ${22*view.zoom}px`}}
+      onPointerDown={e => {
+        if (e.button !== 0 || e.target.closest("button, [role='button']")) return;
+        moved.current = false;
+        drag.current = { startX:e.clientX, startY:e.clientY, x:view.x, y:view.y };
+        e.currentTarget.setPointerCapture(e.pointerId);
+      }}
+      onPointerMove={onMove} onPointerUp={() => { drag.current = null; }}
+      onPointerCancel={() => { drag.current = null; moved.current = true; }}
+      onClick={() => { if (!moved.current) { setSelected(null); setSelectedEdge(null); setConnecting(null); } }}>
+      <div ref={canvas} className="world" style={{transform:`translate(${view.x}px, ${view.y}px) scale(${view.zoom})`}}>
+        <svg className="edges" width="1" height="1"><defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="4.5" orient="auto"><path d="M0,0 L0,9 L8,4.5 z"/></marker></defs>{paths}</svg>
+        {diagram.nodes.map(n => <button key={n.id} className={`node ${n.type} ${selected===n.id?"selected":""} ${connecting===n.id?"connecting":""}`} style={{left:n.x,top:n.y}}
+          onPointerDown={e => {
+            if (e.button !== 0) return;
+            e.stopPropagation(); moved.current = false;
+            drag.current = { id:n.id, startX:e.clientX, startY:e.clientY, x:n.x, y:n.y };
+            e.currentTarget.setPointerCapture(e.pointerId);
+          }}
+          onClick={e => { e.stopPropagation(); if (moved.current) return; if (connecting && connecting!==n.id) { setDiagram(d=>({...d,edges:[...d.edges,{from:connecting,to:n.id}]}));setConnecting(null);setNotice("Conexión creada"); } else { setSelected(n.id); setConnecting(n.id); } }}>
+          <span className="grip">⠿</span><strong>{n.label}</strong><small>{shapes[n.type]}</small>{n.description && <span className="node-description">{n.description}</span>}
+        </button>)}
+      </div>
+      <div className="canvas-controls" onClick={e => e.stopPropagation()}>
+        <button aria-label="Alejar" onClick={() => zoomAt(1/1.2,viewport.current.clientWidth/2,viewport.current.clientHeight/2)}>−</button>
+        <button title="Restablecer zoom al 100 %" onClick={() => zoomAt(1/view.zoom,viewport.current.clientWidth/2,viewport.current.clientHeight/2)}>{Math.round(view.zoom*100)} %</button>
+        <button aria-label="Acercar" onClick={() => zoomAt(1.2,viewport.current.clientWidth/2,viewport.current.clientHeight/2)}>+</button>
+        <button onClick={fitAll}>Ver todo</button>
+        <span>Arrastra el fondo · Rueda para zoom</span>
+      </div>
+    </main>
     <aside className="right"><p className="eyebrow">PROPIEDADES</p>{selectedNode ? <><label>Texto<input value={selectedNode.label} onChange={e => updateNode(selectedNode.id,{label:e.target.value})}/></label>
       <label>Descripción (opcional)<textarea rows={5} value={selectedNode.description || ""} placeholder="Explica qué ocurre en este paso…" onChange={e => { updateNode(selectedNode.id,{description:e.target.value}); setNotice("Descripción modificada · pulsa Guardar"); }}/></label>
       <label>Tipo<select value={selectedNode.type} onChange={e => updateNode(selectedNode.id,{type:e.target.value})}>{Object.entries(shapes).map(([v,l])=><option key={v} value={v}>{l}</option>)}</select></label><button className="delete" onClick={erase}>Eliminar bloque</button><div className="tip"><b>Consejo</b>Para conectar: selecciona un bloque y haz clic en otro.</div></> : edge ? <>

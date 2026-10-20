@@ -1,4 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&display=swap');
+.app .viewport { min-width: 0; height: calc(100dvh - 76px); min-height: 450px; touch-action: none; cursor: grab; }
+.viewport:active { cursor: grabbing; }
+.world { position: absolute; left: 0; top: 0; width: 1px; height: 1px; transform-origin: 0 0; }
+.world .edges { overflow: visible; }
+.canvas-controls { position: absolute; bottom: 16px; left: 16px; right: 16px; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; pointer-events: none; }
+.canvas-controls button { pointer-events: auto; border: 1px solid #dedbea; border-radius: 8px; background: white; color: #5941cc; padding: 10px; cursor: pointer; box-shadow: 0 3px 10px #33256b12; }
+.canvas-controls span { color: #696078; font-size: 11px; background: #f9f8ff; padding: 5px; }
 .node .node-description { display: block; margin-top: 8px; white-space: pre-wrap; overflow-wrap: anywhere; color: #696078; font: 11px/1.45 Arial, sans-serif; }
 .right textarea { width: 100%; margin-top: 7px; padding: 9px; border: 1px solid #dedbea; border-radius: 8px; background: white; color: #3b3651; font: 12px/1.5 Manrope, sans-serif; resize: vertical; }
 .right textarea:focus-visible { outline: 2px solid #745cf1; outline-offset: 2px; }

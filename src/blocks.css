@@ -1,0 +1,76 @@
+/* Shared by the editor and PDF so each block keeps its visual identity. */
+.node {
+  --block-bg: #edf2fc;
+  --block-border: #cbd9ef;
+  --block-ink: #3e5579;
+  background: var(--block-bg);
+  border: 1.5px solid var(--block-border);
+  border-radius: 16px;
+  padding: 13px 12px 12px;
+  color: #303d50;
+  box-shadow: 0 3px 5px #33415505, 0 8px 20px #3341550a;
+  transition: box-shadow 150ms ease, border-color 150ms ease;
+}
+.node.start {
+  --block-bg: #eaf6f0;
+  --block-border: #bcded0;
+  --block-ink: #376854;
+  border-radius: 24px;
+}
+.node.process {
+  --block-bg: #edf2fc;
+  --block-border: #cbd9ef;
+  --block-ink: #3e5579;
+}
+.node.decision {
+  --block-bg: #fff4e5;
+  --block-border: #ebd4b2;
+  --block-ink: #795a32;
+  border-radius: 20px 8px 20px 8px;
+  transform: none;
+}
+.node.end {
+  --block-bg: #faedf2;
+  --block-border: #e8c9d6;
+  --block-ink: #7c4d62;
+  border-radius: 24px;
+}
+.node.decision > *, .node.decision .grip { transform: none; }
+.node strong {
+  font-size: 12px;
+  line-height: 1.45;
+  letter-spacing: -.15px;
+  overflow-wrap: anywhere;
+}
+.node small {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+  margin-top: 7px;
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #ffffff80;
+  color: var(--block-ink);
+  font: 500 9px/1.4 Arial, sans-serif;
+}
+.node small::before { content: "□"; font-size: 10px; }
+.node.start small::before { content: "▶"; font-size: 8px; }
+.node.decision small::before { content: "◇"; }
+.node.end small::before { content: "●"; font-size: 8px; }
+.node .node-description {
+  border-top: 1px solid var(--block-border);
+  padding-top: 8px;
+  margin-top: 9px;
+  color: #536174;
+}
+.node .grip { color: var(--block-ink); opacity: .5; top: 12px; }
+.node:hover { box-shadow: 0 5px 10px #33415508, 0 12px 24px #33415514; }
+.node.selected, .node:focus-visible {
+  border-color: #8b7dc0;
+  outline: 3px solid #b7a9e766;
+  outline-offset: 3px;
+}
+.node.connecting { border-color: #ac8d5f; }
+@media (prefers-reduced-motion: reduce) { .node { transition: none; } }
+@media print { .node { box-shadow: none; print-color-adjust: exact; -webkit-print-color-adjust: exact; } }
