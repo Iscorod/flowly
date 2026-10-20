@@ -1,7 +1,7 @@
 {
   "id": "leads-mkt",
   "title": "Leads - MKT",
-  "updatedAt": "2026-10-20T14:24:44.535Z",
+  "updatedAt": "2026-10-20T14:38:40.164Z",
   "nodes": [
     {
       "id": "start-1792492489306",
@@ -55,8 +55,8 @@
       "id": "decision-1792493046147",
       "type": "process",
       "label": "¿Tiene cita asiganda en C2C?",
-      "x": 2314.4903492907947,
-      "y": 1336.9467687360673
+      "x": 2423.980748395601,
+      "y": 1243.6771694986396
     },
     {
       "id": "process-1792493128014",
@@ -69,8 +69,8 @@
       "id": "process-1792493131554",
       "type": "decision",
       "label": "No tiene",
-      "x": 2749.4998799159725,
-      "y": 1590.2210293731248
+      "x": 3162.735321162604,
+      "y": 1485.7933005382358
     },
     {
       "id": "process-1792493623206",
@@ -102,72 +102,64 @@
       "description": "Se le asigna a la cita la información del lead directamente"
     },
     {
-      "id": "process-1792493806251",
-      "type": "process",
-      "label": "Asignación a través de teléfono 1 y teléfono 2",
-      "x": 2301.1341854667453,
-      "y": 3424.3811740612973,
-      "description": "Asignación del lead final"
-    },
-    {
       "id": "process-1792493861495",
       "type": "end",
       "label": "Asignacion de canales y camapaña a la CITA",
-      "x": 1667.686909743633,
-      "y": 3572.5952083337047
+      "x": 2592.618222281221,
+      "y": 4082.7992549270193
     },
     {
       "id": "decision-1792494052262",
       "type": "process",
       "label": "¿Lead anterior a la cita?",
-      "x": 2541.810188980191,
-      "y": 2600.342152282461,
+      "x": 2537.334714887267,
+      "y": 2567.522008934353,
       "description": "Lead anterior o igual que el día de la cita"
     },
     {
       "id": "decision-1792494134372",
       "type": "decision",
       "label": "SI",
-      "x": 2295.301637156801,
-      "y": 2823.1182838100517
+      "x": 2827.883054214735,
+      "y": 2821.6264591124104
     },
     {
       "id": "decision-1792494137418",
       "type": "decision",
       "label": "No",
-      "x": 2802.3416521288714,
-      "y": 2830.800826943068
+      "x": 2296.6130796284806,
+      "y": 2814.390755269014
     },
     {
       "id": "process-1792494169129",
       "type": "process",
       "label": "Búsqueda del lead mas reciente",
-      "x": 2298.6206350274906,
-      "y": 3019.5971921124146
+      "x": 3465.2275485829646,
+      "y": 3446.259055637818
     },
     {
       "id": "process-1792494297263",
       "type": "process",
       "label": "Selección del Lead ganador",
-      "x": 2301.47191704457,
-      "y": 3182.313374253303,
+      "x": 3468.078830600044,
+      "y": 3616.434361266913,
       "description": "Mes más reciente → primer lead de ese mes (regla posterior)"
     },
     {
       "id": "end-1792494424552",
       "type": "end",
       "label": "Lead no contemplado",
-      "x": 2804.8067625084755,
-      "y": 2988.692423699929,
+      "x": 2297.5863653104434,
+      "y": 2936.4785592824846,
       "description": "No se contempla este lead para la cita"
     },
     {
       "id": "process-1792494509848",
       "type": "process",
-      "label": "Cruce de citas con leads por teléfono",
+      "label": "Cruce de citas con leads por teléfono 1",
       "x": 2764.980346513324,
       "y": 1787.8035265643127,
-      "description": "Busca por los campos teléfono 1 y teléfono 2, \n\nEl lead no se haya generado mas haya de los 90 días anteriores de la cita"
+      "description": "Busca por los campos teléfono 1.\n\nEl lead no se haya generado mas haya de los 90 días anteriores de la cita"
     },
     {
       "id": "process-1792494553717",
@@ -264,22 +256,22 @@
     {
       "id": "process-1792504732151",
       "type": "process",
-      "label": "¿Se encontraron dos leads distintos?",
+      "label": "¿Hay leads por teléfono 1?",
       "x": 2766.262058746552,
       "y": 2191.948569667662,
-      "description": "Porque la cita "
+      "description": ""
     },
     {
       "id": "decision-1792504757083",
       "type": "decision",
-      "label": "Si",
+      "label": "No",
       "x": 2990.050534990963,
       "y": 2402.125637772775
     },
     {
       "id": "decision-1792504758207",
       "type": "decision",
-      "label": "No",
+      "label": "SI",
       "x": 2539.6466888624705,
       "y": 2409.9145597760707
     },
@@ -321,7 +313,7 @@
       "label": "Datos del contacto",
       "x": 2230.200209646978,
       "y": -610.3389149479099,
-      "description": "Datos del contacto y telefonos"
+      "description": "Datos del contacto y teléfonos normalizados"
     },
     {
       "id": "process-1792505264677",
@@ -356,8 +348,8 @@
       "id": "end-1792505378622",
       "type": "end",
       "label": "No entra en v_citas_pv",
-      "x": 2492.943351452418,
-      "y": -11.968908625441877
+      "x": 2490.5005459360978,
+      "y": -10.747505867281706
     },
     {
       "id": "process-1792505407378",
@@ -377,7 +369,7 @@
     {
       "id": "end-1792505475812",
       "type": "end",
-      "label": "Cita preparada",
+      "label": "Cita preparada para PBI",
       "x": 2269.0265046959316,
       "y": 424.9596882548203
     },
@@ -385,8 +377,130 @@
       "id": "start-1792506088186",
       "type": "start",
       "label": "Carga en Power BI",
-      "x": 2299.0897989267046,
-      "y": 1034.2327147940455
+      "x": 2262.5929992251026,
+      "y": 1001.791115059288
+    },
+    {
+      "id": "process-1792506505400",
+      "type": "process",
+      "label": "Cruce de citas con leads por teléfono 2",
+      "x": 3522.908461512903,
+      "y": 1795.1368828326242,
+      "description": "Busca por los campos teléfono 1.\n\nEl lead no se haya generado mas haya de los 90 días anteriores de la cita"
+    },
+    {
+      "id": "process-1792506604602",
+      "type": "process",
+      "label": "¿Hay leads por teléfono 2?",
+      "x": 3525.8921109081857,
+      "y": 2190.4704277075607
+    },
+    {
+      "id": "end-1792506633617",
+      "type": "end",
+      "label": "Sin Lead por telefono 1",
+      "x": 2990.3270444549694,
+      "y": 2564.9184268155195
+    },
+    {
+      "id": "decision-1792506650366",
+      "type": "decision",
+      "label": "No",
+      "x": 3376.7096411440584,
+      "y": 2396.342235982056
+    },
+    {
+      "id": "decision-1792506653836",
+      "type": "decision",
+      "label": "Nueva decisión",
+      "x": 3707.1488116716,
+      "y": 2396.342235982056
+    },
+    {
+      "id": "end-1792506666628",
+      "type": "end",
+      "label": "Sin Lead por teléfono 2",
+      "x": 3375.217816446417,
+      "y": 2555.9674786296723
+    },
+    {
+      "id": "end-1792506691190",
+      "type": "end",
+      "label": "Sin Lead que asignar a la cita",
+      "x": 3190.2315539388997,
+      "y": 2709.625422486723
+    },
+    {
+      "id": "process-1792506718756",
+      "type": "process",
+      "label": "¿Lead anterior a la cita?",
+      "x": 3706.4028993227794,
+      "y": 2552.9838292343898,
+      "description": "Lead anterior o igual que el día de la cita"
+    },
+    {
+      "id": "decision-1792506742695",
+      "type": "decision",
+      "label": "No",
+      "x": 3940.619376852459,
+      "y": 2782.7248326711456
+    },
+    {
+      "id": "decision-1792506742869",
+      "type": "decision",
+      "label": "Si",
+      "x": 3507.2443021876697,
+      "y": 2836.4305217862316
+    },
+    {
+      "id": "end-1792506769641",
+      "type": "end",
+      "label": "Lead no contemplado",
+      "x": 3945.094850945383,
+      "y": 2982.629342155076,
+      "description": "No se contempla este lead para la cita"
+    },
+    {
+      "id": "process-1792506851405",
+      "type": "process",
+      "label": "Comparar resultados",
+      "x": 3193.2152033341818,
+      "y": 2994.563939736206
+    },
+    {
+      "id": "process-1792506900351",
+      "type": "process",
+      "label": "¿Hay 2 leads distintos?",
+      "x": 3193.215203334182,
+      "y": 3170.5992540578754
+    },
+    {
+      "id": "decision-1792506943203",
+      "type": "decision",
+      "label": "Si",
+      "x": 3467.710947700176,
+      "y": 3285.4697557762534
+    },
+    {
+      "id": "decision-1792506949543",
+      "type": "decision",
+      "label": "No",
+      "x": 2938.8590923863453,
+      "y": 3292.9288792644597
+    },
+    {
+      "id": "process-1792507036124",
+      "type": "process",
+      "label": "Selección del único Lead",
+      "x": 2941.373552503823,
+      "y": 3622.760082383127
+    },
+    {
+      "id": "process-1792507088012",
+      "type": "process",
+      "label": "Seleccion del Lead por idsolicitud de lead",
+      "x": 1656.3841515698825,
+      "y": 3640.9062349099895
     }
   ],
   "edges": [
@@ -427,10 +541,6 @@
       "to": "process-1792493752152"
     },
     {
-      "from": "process-1792493752152",
-      "to": "process-1792493861495"
-    },
-    {
       "from": "decision-1792494052262",
       "to": "decision-1792494134372"
     },
@@ -439,32 +549,16 @@
       "to": "decision-1792494137418"
     },
     {
-      "from": "decision-1792494134372",
-      "to": "process-1792494169129"
-    },
-    {
       "from": "process-1792494169129",
       "to": "process-1792494297263"
-    },
-    {
-      "from": "process-1792494297263",
-      "to": "process-1792493806251"
     },
     {
       "from": "decision-1792494137418",
       "to": "end-1792494424552"
     },
     {
-      "from": "decision-1792493660550",
-      "to": "process-1792494509848"
-    },
-    {
       "from": "process-1792493131554",
       "to": "process-1792494509848"
-    },
-    {
-      "from": "process-1792493806251",
-      "to": "process-1792493861495"
     },
     {
       "from": "start-1792492489306",
@@ -633,6 +727,106 @@
     {
       "from": "end-1792505475812",
       "to": "start-1792506088186"
+    },
+    {
+      "from": "process-1792493131554",
+      "to": "process-1792506505400"
+    },
+    {
+      "from": "decision-1792493660550",
+      "to": "process-1792493131554"
+    },
+    {
+      "from": "process-1792506505400",
+      "to": "process-1792506604602"
+    },
+    {
+      "from": "decision-1792504757083",
+      "to": "end-1792506633617"
+    },
+    {
+      "from": "process-1792506604602",
+      "to": "decision-1792506650366"
+    },
+    {
+      "from": "process-1792506604602",
+      "to": "decision-1792506653836"
+    },
+    {
+      "from": "decision-1792506650366",
+      "to": "end-1792506666628"
+    },
+    {
+      "from": "end-1792506666628",
+      "to": "end-1792506691190"
+    },
+    {
+      "from": "end-1792506633617",
+      "to": "end-1792506691190"
+    },
+    {
+      "from": "process-1792506718756",
+      "to": "decision-1792506742869"
+    },
+    {
+      "from": "process-1792506718756",
+      "to": "decision-1792506742695"
+    },
+    {
+      "from": "decision-1792506653836",
+      "to": "process-1792506718756"
+    },
+    {
+      "from": "decision-1792506742695",
+      "to": "end-1792506769641"
+    },
+    {
+      "from": "end-1792506691190",
+      "to": "process-1792506851405"
+    },
+    {
+      "from": "decision-1792506742869",
+      "to": "process-1792506851405"
+    },
+    {
+      "from": "decision-1792494134372",
+      "to": "process-1792506851405"
+    },
+    {
+      "from": "process-1792506851405",
+      "to": "process-1792506900351"
+    },
+    {
+      "from": "process-1792506900351",
+      "to": "decision-1792506943203"
+    },
+    {
+      "from": "decision-1792506943203",
+      "to": "process-1792494169129"
+    },
+    {
+      "from": "process-1792506900351",
+      "to": "decision-1792506949543"
+    },
+    {
+      "from": "decision-1792506949543",
+      "to": "process-1792507036124"
+    },
+    {
+      "from": "process-1792493752152",
+      "to": "process-1792507088012"
+    },
+    {
+      "from": "process-1792507088012",
+      "to": "process-1792493861495"
+    },
+    {
+      "from": "process-1792507036124",
+      "to": "process-1792493861495"
+    },
+    {
+      "from": "process-1792494297263",
+      "to": "process-1792493861495"
     }
   ],
   "annotations": [
