@@ -1,7 +1,7 @@
 {
   "id": "leads-mkt",
   "title": "Leads - MKT",
-  "updatedAt": "2026-10-20T15:21:44.902Z",
+  "updatedAt": "2026-10-20T15:51:03.584Z",
   "nodes": [
     {
       "id": "start-1792492489306",
@@ -105,8 +105,8 @@
       "id": "process-1792493861495",
       "type": "end",
       "label": "Asignacion de canales y camapaña a la CITA",
-      "x": 2248.2249491072503,
-      "y": 4273.70053811874
+      "x": 2250.0470679076407,
+      "y": 4410.359448148029
     },
     {
       "id": "decision-1792494052262",
@@ -306,7 +306,7 @@
       "label": "Tabla Citas",
       "x": 2527.713370070056,
       "y": -617.0155377333873,
-      "description": "Datos de todas las citas"
+      "description": "Datos de todas las citas C2C"
     },
     {
       "id": "process-1792505168459",
@@ -510,6 +510,122 @@
       "x": 3207.9766783136847,
       "y": 2940.81723208043,
       "description": "mes más reciente con candidatos y primer lead cronológico de ese mes."
+    },
+    {
+      "id": "start-1792510219979",
+      "type": "start",
+      "label": "Presupuestos",
+      "x": 620.2701315488052,
+      "y": 2922.0313620959946,
+      "description": "Pptos que aparecen en la BBDD"
+    },
+    {
+      "id": "process-1792510259847",
+      "type": "process",
+      "label": "Tabla Pptos",
+      "x": 617.4220925767113,
+      "y": 3222.1973966589553,
+      "description": "C2C"
+    },
+    {
+      "id": "start-1792510343393",
+      "type": "start",
+      "label": "Vista SQL",
+      "x": 1134.4218909249867,
+      "y": 2915.073861142509,
+      "description": "Vista v_citas_pv"
+    },
+    {
+      "id": "process-1792510361175",
+      "type": "process",
+      "label": "Agrupar citas por id Contacto",
+      "x": 1132.9238928026407,
+      "y": 3164.458926260256
+    },
+    {
+      "id": "process-1792510393668",
+      "type": "process",
+      "label": "Ordenar ",
+      "x": 1134.7460116030315,
+      "y": 3376.551858603936,
+      "description": "DESC fechaini e idCita"
+    },
+    {
+      "id": "process-1792510433256",
+      "type": "process",
+      "label": "Tabla Buffer",
+      "x": 1143.2083642488951,
+      "y": 3583.9492811704094
+    },
+    {
+      "id": "process-1792510462798",
+      "type": "process",
+      "label": "Conservar columnas necesarias",
+      "x": 619.5683320551456,
+      "y": 3456.2868399840745
+    },
+    {
+      "id": "process-1792510482528",
+      "type": "process",
+      "label": "Buscar idContacto en citas_por_contacto",
+      "x": 622.1782576972549,
+      "y": 3662.1862644282023
+    },
+    {
+      "id": "process-1792510549312",
+      "type": "process",
+      "label": "¿Existe cita del mismo contacto anterior o igual al ppto ?",
+      "x": 620.6802595749085,
+      "y": 3913.6386588820924
+    },
+    {
+      "id": "decision-1792510588126",
+      "type": "decision",
+      "label": "Si",
+      "x": 967.6197578375632,
+      "y": 4101.965136678404
+    },
+    {
+      "id": "decision-1792510590941",
+      "type": "decision",
+      "label": "No",
+      "x": 346.4416054260617,
+      "y": 4103.463134800751
+    },
+    {
+      "id": "end-1792510609065",
+      "type": "end",
+      "label": "Presupuesto sin Cita",
+      "x": 345.53054602586633,
+      "y": 4331.955136347944
+    },
+    {
+      "id": "process-1792510628588",
+      "type": "process",
+      "label": "Seleccionar por cita mas reciente",
+      "x": 966.1217597152167,
+      "y": 4266.849280605391
+    },
+    {
+      "id": "process-1792510645031",
+      "type": "process",
+      "label": "Desempatar por idCita mayor",
+      "x": 966.1217597152172,
+      "y": 4464.365262545947
+    },
+    {
+      "id": "process-1792510912836",
+      "type": "process",
+      "label": "Busqueda cita completa por idCita",
+      "x": 1620.9248019252796,
+      "y": 4669.717969972076
+    },
+    {
+      "id": "process-1792510941252",
+      "type": "process",
+      "label": "Incorporar canales y camapaña de lead1 o lead2",
+      "x": 1621.8358613254745,
+      "y": 4902.949176422062
     }
   ],
   "edges": [
@@ -832,6 +948,70 @@
     {
       "from": "process-1792493131554",
       "to": "process-1792506505400"
+    },
+    {
+      "from": "start-1792510343393",
+      "to": "process-1792510361175"
+    },
+    {
+      "from": "start-1792510219979",
+      "to": "process-1792510259847"
+    },
+    {
+      "from": "process-1792510361175",
+      "to": "process-1792510393668"
+    },
+    {
+      "from": "process-1792510393668",
+      "to": "process-1792510433256"
+    },
+    {
+      "from": "process-1792510259847",
+      "to": "process-1792510462798"
+    },
+    {
+      "from": "process-1792510433256",
+      "to": "process-1792510482528"
+    },
+    {
+      "from": "process-1792510462798",
+      "to": "process-1792510482528"
+    },
+    {
+      "from": "process-1792510482528",
+      "to": "process-1792510549312"
+    },
+    {
+      "from": "process-1792510549312",
+      "to": "decision-1792510588126"
+    },
+    {
+      "from": "process-1792510549312",
+      "to": "decision-1792510590941"
+    },
+    {
+      "from": "decision-1792510590941",
+      "to": "end-1792510609065"
+    },
+    {
+      "from": "decision-1792510588126",
+      "to": "process-1792510628588"
+    },
+    {
+      "from": "process-1792510628588",
+      "to": "process-1792510645031"
+    },
+    {
+      "from": "process-1792493861495",
+      "to": "process-1792510912836"
+    },
+    {
+      "from": "process-1792510645031",
+      "to": "process-1792510912836"
+    },
+    {
+      "from": "process-1792510912836",
+      "to": "process-1792510941252"
     }
   ],
   "annotations": [
@@ -873,7 +1053,7 @@
       "type": "text",
       "width": 260,
       "height": 100,
-      "text": "Vista de v_leads_bi",
+      "text": "Vista de v_leads_bi\n\nNormaliza los teléfonos, obtiene campaña y canal mediante los JOIN.\n\nVentaja: Power BI recibe los leads con los datos necesarios para atribuirlos a las citas.",
       "color": "#9b8ac0",
       "fontSize": 20,
       "x": 1316.3983073251457,
@@ -884,7 +1064,7 @@
       "type": "text",
       "width": 260,
       "height": 100,
-      "text": "Table buffer leads_por_telefono",
+      "text": "Table buffer leads_por_telefono\n\nVentajas:\n1.Agrupa los leads por telefono_norm.\n\n2.Guarda todos los leads de cada teléfono dentro de una tabla anidada.\n\n3.Permite que cita recupere ese grupo y seleccione un solo lead por teléfono, sin expandir todos los candidatos\n\nEvitamos multiplicar las filas de las citas por cada lead coincidente.",
       "color": "#9b8ac0",
       "fontSize": 20,
       "x": 1248.8364701113032,
@@ -939,11 +1119,33 @@
       "type": "text",
       "width": 260,
       "height": 100,
-      "text": "Vista v_citas_pv",
+      "text": "Vista v_citas_pv\n\nObtiene las citas PV y PV\n \nRelaciona cada cita con su contacto y recupera los teléfonos normalizados.\n\nVentaja: Power BI no necesita repetir esos JOIN para cada cruce con leads.",
       "color": "#9b8ac0",
       "fontSize": 20,
       "x": 2778.2209453887554,
       "y": -797.2117892852866
+    },
+    {
+      "id": "c63b8789-0775-4577-b3ae-d22e7be64302",
+      "type": "square",
+      "width": 327.33178200585763,
+      "height": 919.5203921327734,
+      "text": "",
+      "color": "#9b8ac0",
+      "fontSize": 20,
+      "x": 1036.1810724658308,
+      "y": 2841.018281166459
+    },
+    {
+      "id": "87c07299-82ca-4ef2-b444-9537a4af27b5",
+      "type": "text",
+      "width": 260,
+      "height": 100,
+      "text": "Citas_por_contacto\n\nAgrupa las citas por idContacto. \n\nDespués, presupuesto examina las citas del grupo y selecciona únicamente la última anterior o del mismo día del presupuesto.\n\nVentaja principal: evita que cada presupuesto se multiplique por todas las citas del paciente.",
+      "color": "#9b8ac0",
+      "fontSize": 20,
+      "x": 1369.0403206646338,
+      "y": 2868.2718000552704
     }
   ]
 }
