@@ -1,7 +1,7 @@
 {
   "id": "leads-mkt",
   "title": "Leads - MKT",
-  "updatedAt": "2026-10-20T16:32:22.284Z",
+  "updatedAt": "2026-10-21T08:46:41.381Z",
   "nodes": [
     {
       "id": "start-1792492489306",
@@ -9,7 +9,7 @@
       "label": "Lead",
       "x": 576.4508797803732,
       "y": -948.5019242140814,
-      "description": "Recepción del Lead con sus datos"
+      "description": "Se traen de leadsolicitud para asignar campañas y canales"
     },
     {
       "id": "process-1792492510807",
@@ -515,103 +515,103 @@
       "id": "start-1792510219979",
       "type": "start",
       "label": "Presupuestos",
-      "x": 620.2701315488052,
-      "y": 2922.0313620959946,
+      "x": -2015.0338102859596,
+      "y": -904.5743616640752,
       "description": "Pptos que aparecen en la BBDD"
     },
     {
       "id": "process-1792510259847",
       "type": "process",
       "label": "Tabla Pptos",
-      "x": 617.4220925767113,
-      "y": 3222.1973966589553,
+      "x": -2013.3323098515434,
+      "y": -586.8132104096761,
       "description": "C2C"
     },
     {
       "id": "start-1792510343393",
       "type": "start",
       "label": "Vista SQL",
-      "x": 1134.4218909249867,
-      "y": 2915.073861142509,
+      "x": -2591.080865824988,
+      "y": -817.5586244002807,
       "description": "Vista v_citas_pv"
     },
     {
       "id": "process-1792510361175",
       "type": "process",
       "label": "Agrupar citas por id Contacto",
-      "x": 1132.9238928026407,
-      "y": 3164.458926260256
+      "x": -2594.0706886449752,
+      "y": -589.2333509655873
     },
     {
       "id": "process-1792510393668",
       "type": "process",
       "label": "Ordenar ",
-      "x": 1134.7460116030315,
-      "y": 3376.551858603936,
+      "x": -2593.9874405637693,
+      "y": -372.07895524366836,
       "description": "DESC fechaini e idCita"
     },
     {
       "id": "process-1792510433256",
       "type": "process",
       "label": "Tabla Buffer",
-      "x": 1143.2083642488951,
-      "y": 3583.9492811704094
+      "x": -2593.981944060666,
+      "y": -169.23935544396662
     },
     {
       "id": "process-1792510462798",
       "type": "process",
       "label": "Conservar columnas necesarias",
-      "x": 619.5683320551456,
-      "y": 3456.2868399840745
+      "x": -2011.186070373109,
+      "y": -292.8391016640582
     },
     {
       "id": "process-1792510482528",
       "type": "process",
       "label": "Buscar idContacto en citas_por_contacto",
-      "x": 622.1782576972549,
-      "y": 3662.1862644282023
+      "x": -2011.5597941262822,
+      "y": -12.877417958883598
     },
     {
       "id": "process-1792510549312",
       "type": "process",
       "label": "¿Existe cita del mismo contacto anterior o igual al ppto ?",
-      "x": 620.6802595749085,
-      "y": 3913.6386588820924
+      "x": -2003.2014905376225,
+      "y": 463.5831874225854
     },
     {
       "id": "decision-1792510588126",
       "type": "decision",
       "label": "Si",
-      "x": 967.6197578375632,
-      "y": 4101.965136678404
+      "x": -1676.0761841108956,
+      "y": 944.0491602548441
     },
     {
       "id": "decision-1792510590941",
       "type": "decision",
       "label": "No",
-      "x": 346.4416054260617,
-      "y": 4103.463134800751
+      "x": -2319.6009131087585,
+      "y": 934.6684721728639
     },
     {
       "id": "end-1792510609065",
       "type": "end",
       "label": "Presupuesto sin Cita",
-      "x": 345.53054602586633,
-      "y": 4331.955136347944
+      "x": -2327.0307441577334,
+      "y": 1357.2183167656383
     },
     {
       "id": "process-1792510628588",
       "type": "process",
       "label": "Seleccionar por cita mas reciente",
-      "x": 966.1217597152167,
-      "y": 4266.849280605391
+      "x": -1671.5245347688292,
+      "y": 1354.8967312052405
     },
     {
       "id": "process-1792510645031",
       "type": "process",
       "label": "Desempatar por idCita mayor",
-      "x": 966.1217597152172,
-      "y": 4464.365262545947
+      "x": -1673.5852872381054,
+      "y": 1822.6796631340296
     },
     {
       "id": "process-1792510912836",
@@ -664,6 +664,148 @@
       "label": "Presupuesto",
       "x": 1621.9433336965017,
       "y": 5138.65541495284
+    },
+    {
+      "id": "start-1792571528642",
+      "type": "start",
+      "label": "Leads",
+      "x": -977.5159938574536,
+      "y": -973.1061122764572,
+      "description": "Se utiliza para el análisis de solicitudes"
+    },
+    {
+      "id": "start-1792571612287",
+      "type": "start",
+      "label": "MariaDB",
+      "x": -232.40245179159103,
+      "y": -1713.71859250189,
+      "description": "Tablas originales"
+    },
+    {
+      "id": "process-1792571812706",
+      "type": "process",
+      "label": "Leadsolicitud (2)",
+      "x": -745.1225686705844,
+      "y": -669.5899895373776
+    },
+    {
+      "id": "process-1792571813136",
+      "type": "process",
+      "label": "Tabla leadsolicitud",
+      "x": -223.2124576064474,
+      "y": -1234.9926098568594
+    },
+    {
+      "id": "process-1792571813608",
+      "type": "process",
+      "label": "Leadsolicitud",
+      "x": -1196.3573521947862,
+      "y": -661.4351440520005
+    },
+    {
+      "id": "process-1792572043468",
+      "type": "process",
+      "label": "Filtrar desde 2024 y eliminarpruebas",
+      "x": -746.0415815169792,
+      "y": -539.7005397635859
+    },
+    {
+      "id": "process-1792572043748",
+      "type": "process",
+      "label": "Filtrar desde 2024 y eliminarpruebas",
+      "x": -1195.0808155070017,
+      "y": -533.7332409730209
+    },
+    {
+      "id": "process-1792572075167",
+      "type": "process",
+      "label": "Añadir estado, clínica,campaña y canal",
+      "x": -746.7874938657999,
+      "y": -409.91179106879525
+    },
+    {
+      "id": "process-1792572075319",
+      "type": "process",
+      "label": "Añadir estado, clínica,campaña y canal",
+      "x": -1193.5889908093604,
+      "y": -374.10799832540476
+    },
+    {
+      "id": "process-1792572149530",
+      "type": "process",
+      "label": "Normalizar teléfono y crearnombre completo",
+      "x": -1180.9084808794098,
+      "y": -180.17078763203958
+    },
+    {
+      "id": "process-1792572149688",
+      "type": "process",
+      "label": "Crear CuentaCita",
+      "x": -749.0252309122618,
+      "y": -247.30289902589675
+    },
+    {
+      "id": "process-1792572182186",
+      "type": "process",
+      "label": "Crear Verificación",
+      "x": -1180.9084808794098,
+      "y": -8.610947403293409
+    },
+    {
+      "id": "process-1792572182329",
+      "type": "process",
+      "label": "Normalizar texto de canal",
+      "x": -1180.162568530589,
+      "y": 136.09604826790988
+    },
+    {
+      "id": "process-1792572221898",
+      "type": "process",
+      "label": "Recuperar Verificación por idLead",
+      "x": -970.5611985119906,
+      "y": 283.78669333439575
+    },
+    {
+      "id": "process-1792572239308",
+      "type": "process",
+      "label": "Eliminar duplicados por id",
+      "x": -969.8152861631698,
+      "y": 465.7893064466308
+    },
+    {
+      "id": "process-1792572251781",
+      "type": "process",
+      "label": "Excluir 3 canales",
+      "x": -973.5448479072732,
+      "y": 643.316445465942
+    },
+    {
+      "id": "process-1792572262353",
+      "type": "process",
+      "label": "Tabla leadsolicitud final",
+      "x": -972.7989355584524,
+      "y": 798.4662140206342
+    },
+    {
+      "id": "process-1792572294554",
+      "type": "process",
+      "label": "Cruzar teléfono con contactotele1",
+      "x": -751.2629679587237,
+      "y": -132.4323973075189
+    },
+    {
+      "id": "process-1792572308190",
+      "type": "process",
+      "label": "Clasificar Paciente Nuevo /Antiguo",
+      "x": -752.0088803075444,
+      "y": -2.643648612728313
+    },
+    {
+      "id": "process-1792572318917",
+      "type": "process",
+      "label": "Cruzar teléfono con contactotele2",
+      "x": -752.754792656365,
+      "y": 145.04699645375754
     }
   ],
   "edges": [
@@ -1070,6 +1212,98 @@
     {
       "from": "process-1792510941252",
       "to": "end-1792513689271"
+    },
+    {
+      "from": "start-1792571612287",
+      "to": "start-1792505088421"
+    },
+    {
+      "from": "start-1792571612287",
+      "to": "start-1792510219979"
+    },
+    {
+      "from": "start-1792571612287",
+      "to": "process-1792571813136"
+    },
+    {
+      "from": "process-1792571813136",
+      "to": "start-1792492489306"
+    },
+    {
+      "from": "process-1792571813136",
+      "to": "start-1792571528642"
+    },
+    {
+      "from": "start-1792571528642",
+      "to": "process-1792571812706"
+    },
+    {
+      "from": "start-1792571528642",
+      "to": "process-1792571813608"
+    },
+    {
+      "from": "process-1792571813608",
+      "to": "process-1792572043748"
+    },
+    {
+      "from": "process-1792571812706",
+      "to": "process-1792572043468"
+    },
+    {
+      "from": "process-1792572043468",
+      "to": "process-1792572075167"
+    },
+    {
+      "from": "process-1792572043748",
+      "to": "process-1792572075319"
+    },
+    {
+      "from": "process-1792572182186",
+      "to": "process-1792572182329"
+    },
+    {
+      "from": "process-1792572221898",
+      "to": "process-1792572239308"
+    },
+    {
+      "from": "process-1792572239308",
+      "to": "process-1792572251781"
+    },
+    {
+      "from": "process-1792572251781",
+      "to": "process-1792572262353"
+    },
+    {
+      "from": "process-1792572182329",
+      "to": "process-1792572221898"
+    },
+    {
+      "from": "process-1792572149530",
+      "to": "process-1792572182186"
+    },
+    {
+      "from": "process-1792572075319",
+      "to": "process-1792572149530"
+    },
+    {
+      "from": "process-1792572075167",
+      "to": "process-1792572149688"
+    },
+    {
+      "from": "process-1792572149688",
+      "to": "process-1792572294554"
+    },
+    {
+      "from": "process-1792572294554",
+      "to": "process-1792572308190"
+    },
+    {
+      "from": "process-1792572308190",
+      "to": "process-1792572318917"
+    },
+    {
+      "from": "process-1792572318917",
+      "to": "process-1792572221898"
     }
   ],
   "annotations": [
@@ -1191,8 +1425,8 @@
       "text": "",
       "color": "#9b8ac0",
       "fontSize": 20,
-      "x": 1036.1810724658308,
-      "y": 2841.018281166459
+      "x": -2678.30247068372,
+      "y": -909.7631467695696
     },
     {
       "id": "87c07299-82ca-4ef2-b444-9537a4af27b5",
@@ -1202,8 +1436,8 @@
       "text": "Citas_por_contacto\n\nAgrupa las citas por idContacto. \n\nDespués, presupuesto examina las citas del grupo y selecciona únicamente la última anterior o del mismo día del presupuesto.\n\nVentaja principal: evita que cada presupuesto se multiplique por todas las citas del paciente.",
       "color": "#9b8ac0",
       "fontSize": 20,
-      "x": 1369.0403206646338,
-      "y": 2868.2718000552704
+      "x": -2950.407968926212,
+      "y": -900.6585702739972
     },
     {
       "id": "1f832000-34d0-4b00-8513-59d624119cd9",
