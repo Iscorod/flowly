@@ -1,7 +1,7 @@
 {
   "id": "leads-mkt",
   "title": "Leads - MKT",
-  "updatedAt": "2026-10-21T08:46:41.381Z",
+  "updatedAt": "2026-10-22T08:18:12.386Z",
   "nodes": [
     {
       "id": "start-1792492489306",
@@ -16,7 +16,7 @@
       "type": "process",
       "label": "Normalización de teléfono",
       "x": 69.33323300211693,
-      "y": -592.1915249223808,
+      "y": -756.2922416629207,
       "description": "Se normaliza el teléfono, se eliminan espacios, guiones y +34"
     },
     {
@@ -166,24 +166,24 @@
       "id": "process-1792494553717",
       "type": "process",
       "label": "Canal",
-      "x": 243.54165175523076,
-      "y": -594.31330720464,
+      "x": 265.9190222198498,
+      "y": -743.495776968767,
       "description": "Obtiene canal mediante tabla listado."
     },
     {
       "id": "process-1792495568863",
       "type": "process",
       "label": "Campaña",
-      "x": 440.9546235127085,
-      "y": -593.9464905282348,
+      "x": 479.74206565138155,
+      "y": -738.653486199438,
       "description": "Obtiene campaña mediante leadpromocion"
     },
     {
       "id": "process-1792495646646",
       "type": "process",
       "label": "Vista SQL",
-      "x": 577.8284542334889,
-      "y": -755.889143344909,
+      "x": 562.9102072570761,
+      "y": -536.5909127916422,
       "description": "v_leads_bi"
     },
     {
@@ -235,16 +235,16 @@
       "id": "process-1792496891877",
       "type": "process",
       "label": "Leads Antiguos",
-      "x": 883.3132461961958,
-      "y": -600.6942953970183,
+      "x": 886.2968955914783,
+      "y": -737.9421675800153,
       "description": "solo se mantienen leads desde el 1/1/2024, por optimización recursos"
     },
     {
       "id": "process-1792496956535",
       "type": "process",
       "label": "Eliminacion de pruebas",
-      "x": 1090.0215484235164,
-      "y": -603.7106460017357,
+      "x": 1088.529723725875,
+      "y": -734.9912193941675,
       "description": "Se eliminan aquellos leads con nombre test prueba o llamar"
     },
     {
@@ -280,55 +280,55 @@
       "id": "start-1792505088421",
       "type": "start",
       "label": "Citas",
-      "x": 2231.589137916245,
-      "y": -961.4816407497535,
+      "x": 2240.138957223366,
+      "y": -962.7030435079137,
       "description": "Citas que aparecen en la BBDD"
     },
     {
       "id": "process-1792505145811",
       "type": "process",
       "label": "Vista SQL",
-      "x": 2230.603656116312,
-      "y": -779.4800255133375,
+      "x": 2241.596280939754,
+      "y": -527.8710573323424,
       "description": "v_citas_pv"
     },
     {
       "id": "process-1792505167534",
       "type": "process",
       "label": "Datos de la cita",
-      "x": 1936.8322535553061,
-      "y": -601.4367512339401,
+      "x": 1940.4964618297865,
+      "y": -779.761553925325,
       "description": "datos obtenidos de cita_extra y tipocita"
     },
     {
       "id": "process-1792505167961",
       "type": "process",
       "label": "Tabla Citas",
-      "x": 2527.713370070056,
-      "y": -617.0155377333873,
+      "x": 2532.5989811026966,
+      "y": -772.1336880197289,
       "description": "Datos de todas las citas C2C"
     },
     {
       "id": "process-1792505168459",
       "type": "process",
       "label": "Datos del contacto",
-      "x": 2230.200209646978,
-      "y": -610.3389149479099,
+      "x": 2241.1928344704193,
+      "y": -775.2282872995329,
       "description": "Datos del contacto y teléfonos normalizados"
     },
     {
       "id": "process-1792505264677",
       "type": "process",
       "label": "Tabla Leads",
-      "x": 685.5977302600181,
-      "y": -593.7805407055375,
+      "x": 666.2040091906816,
+      "y": -726.5529387956105,
       "description": "Datos de todos los leads"
     },
     {
       "id": "process-1792505321078",
       "type": "process",
       "label": "¿La cita es PV o PV Derivada?",
-      "x": 2230.382204667554,
+      "x": 2241.3748294909956,
       "y": -344.64581619944533
     },
     {
@@ -617,15 +617,15 @@
       "id": "process-1792510912836",
       "type": "process",
       "label": "Busqueda cita completa por idCita",
-      "x": 1620.9248019252796,
-      "y": 4669.717969972076
+      "x": 308.1513021476694,
+      "y": 4839.108098975639
     },
     {
       "id": "process-1792510941252",
       "type": "process",
       "label": "Incorporar campañas y canales de Lead1 y Lead2 de la cita seleccionada",
-      "x": 1621.8358613254745,
-      "y": 4902.949176422062
+      "x": 309.0623615478644,
+      "y": 5036.041420639147
     },
     {
       "id": "process-1792513181702",
@@ -662,8 +662,8 @@
       "id": "end-1792513689271",
       "type": "end",
       "label": "Presupuesto",
-      "x": 1621.9433336965017,
-      "y": 5138.65541495284
+      "x": 309.1698339188915,
+      "y": 5289.896601563164
     },
     {
       "id": "start-1792571528642",
@@ -866,22 +866,6 @@
       "to": "process-1792494509848"
     },
     {
-      "from": "start-1792492489306",
-      "to": "process-1792495646646"
-    },
-    {
-      "from": "process-1792495646646",
-      "to": "process-1792492510807"
-    },
-    {
-      "from": "process-1792495646646",
-      "to": "process-1792494553717"
-    },
-    {
-      "from": "process-1792495646646",
-      "to": "process-1792495568863"
-    },
-    {
       "from": "process-1792496161628",
       "to": "decision-1792496567309"
     },
@@ -894,36 +878,8 @@
       "to": "end-1792496587093"
     },
     {
-      "from": "process-1792495646646",
-      "to": "process-1792496891877"
-    },
-    {
-      "from": "process-1792495646646",
-      "to": "process-1792496956535"
-    },
-    {
       "from": "decision-1792496567309",
       "to": "end-1792495678780"
-    },
-    {
-      "from": "process-1792496891877",
-      "to": "process-1792496161628"
-    },
-    {
-      "from": "process-1792496956535",
-      "to": "process-1792496161628"
-    },
-    {
-      "from": "process-1792495568863",
-      "to": "process-1792496161628"
-    },
-    {
-      "from": "process-1792494553717",
-      "to": "process-1792496161628"
-    },
-    {
-      "from": "process-1792492510807",
-      "to": "process-1792496161628"
     },
     {
       "from": "end-1792495678780",
@@ -960,42 +916,6 @@
     {
       "from": "process-1792504732151",
       "to": "decision-1792504757083"
-    },
-    {
-      "from": "start-1792505088421",
-      "to": "process-1792505145811"
-    },
-    {
-      "from": "process-1792505145811",
-      "to": "process-1792505167961"
-    },
-    {
-      "from": "process-1792505145811",
-      "to": "process-1792505168459"
-    },
-    {
-      "from": "process-1792505145811",
-      "to": "process-1792505167534"
-    },
-    {
-      "from": "process-1792495646646",
-      "to": "process-1792505264677"
-    },
-    {
-      "from": "process-1792505264677",
-      "to": "process-1792496161628"
-    },
-    {
-      "from": "process-1792505167534",
-      "to": "process-1792505321078"
-    },
-    {
-      "from": "process-1792505168459",
-      "to": "process-1792505321078"
-    },
-    {
-      "from": "process-1792505167961",
-      "to": "process-1792505321078"
     },
     {
       "from": "process-1792505321078",
@@ -1304,6 +1224,86 @@
     {
       "from": "process-1792572318917",
       "to": "process-1792572221898"
+    },
+    {
+      "from": "process-1792492510807",
+      "to": "process-1792495646646"
+    },
+    {
+      "from": "process-1792494553717",
+      "to": "process-1792495646646"
+    },
+    {
+      "from": "process-1792495568863",
+      "to": "process-1792495646646"
+    },
+    {
+      "from": "process-1792505264677",
+      "to": "process-1792495646646"
+    },
+    {
+      "from": "process-1792496891877",
+      "to": "process-1792495646646"
+    },
+    {
+      "from": "process-1792496956535",
+      "to": "process-1792495646646"
+    },
+    {
+      "from": "start-1792492489306",
+      "to": "process-1792492510807"
+    },
+    {
+      "from": "start-1792492489306",
+      "to": "process-1792494553717"
+    },
+    {
+      "from": "start-1792492489306",
+      "to": "process-1792495568863"
+    },
+    {
+      "from": "start-1792492489306",
+      "to": "process-1792505264677"
+    },
+    {
+      "from": "start-1792492489306",
+      "to": "process-1792496891877"
+    },
+    {
+      "from": "start-1792492489306",
+      "to": "process-1792496956535"
+    },
+    {
+      "from": "process-1792495646646",
+      "to": "process-1792496161628"
+    },
+    {
+      "from": "start-1792505088421",
+      "to": "process-1792505167534"
+    },
+    {
+      "from": "start-1792505088421",
+      "to": "process-1792505168459"
+    },
+    {
+      "from": "start-1792505088421",
+      "to": "process-1792505167961"
+    },
+    {
+      "from": "process-1792505167534",
+      "to": "process-1792505145811"
+    },
+    {
+      "from": "process-1792505168459",
+      "to": "process-1792505145811"
+    },
+    {
+      "from": "process-1792505167961",
+      "to": "process-1792505145811"
+    },
+    {
+      "from": "process-1792505145811",
+      "to": "process-1792505321078"
     }
   ],
   "annotations": [
